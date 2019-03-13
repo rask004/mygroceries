@@ -25,3 +25,5 @@ yarn-error.log*
 # vs-code files
 /.vscode
 *.code-workspace
+
+/docs

@@ -1,25 +1,64 @@
 import React, { Component } from 'react';
 import './recipes.css';
 import {FaPencilAlt, FaTrash, FaPlusSquare} from 'react-icons/fa';
+import PropTypes from 'prop-types';
 
 class RecipesView extends Component {
     constructor(props) {
         super(props);
 
+        this.handleAddRecipe = this.handleAddRecipe.bind(this);
+        this.handleSelectRecipe = this.handleSelectRecipe.bind(this);
+        this.handleRemoveRecipe = this.handleRemoveRecipe.bind(this);
+        const id = props.recipes.length > 0 ?
+            props.recipes[0].id :
+            -1;
         this.state = {
-            selectedRecipeId: 1,
+            selectedRecipeId: id,
         }
     }
 
-    render() {
+    handleAddRecipe(recipe) {
+        this.props.handleAddRecipe(recipe);
+    }
 
-        const index = this.props.recipes.findIndex(x => x.id === this.state.selectedRecipeId);
-        const recipe = index >= 0 ?
+    handleRemoveRecipe(id) {
+        if (this.state.selectedRecipeId === id) {
+            if (this.props.recipes.length === 0) {
+                this.setState({selectedRecipeId: null});
+            }
+            else {
+                this.setState({selectedRecipeId: this.props.recipes[0].id})
+            }
+        }
+        this.props.handleRemoveRecipe(id);
+    }
+
+    handleSelectRecipe(id) {
+        this.setState({selectedRecipeId: id});
+    }
+
+    render() {
+        let index = this.props.recipes.findIndex(x => x.id === this.state.selectedRecipeId);
+        let recipe = index >= 0 ?
             this.props.recipes[index] :
-            "There is no Recipe Selected.";
+            null;
+        if(recipe !== null) {
+            const ingredients = recipe.ingredients.slice();
+            for(let i = 0; i < recipe.ingredients.length; i++) {
+                const index = this.props.products.findIndex(x => x.id === ingredients[i].id);
+                const name = this.props.products[index].name;
+                ingredients[i].name = name;
+            }
+            recipe.ingredients = ingredients;
+        }
         return (
             <div className="recipes-view">
-                <RecipeMaster />
+                <RecipeMaster recipes={this.props.recipes} 
+                  currentRecipe={this.state.selectedRecipeId} 
+                  handleAddRecipe={this.props.handleAddRecipe} 
+                  handleSelectRecipe={this.handleSelectRecipe}
+                  handleRemoveRecipe={this.handleRemoveRecipe} />
                 <RecipeDetail recipe={recipe} />
             </div>            
         );
@@ -28,31 +67,70 @@ class RecipesView extends Component {
 
 class RecipeMaster extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            title: "",
+        }
+
+        this.handleInputChangeRecipeTitle = this.handleInputChangeRecipeTitle.bind(this);
+        this.handleSubmitNewRecipe = this.handleSubmitNewRecipe.bind(this);
+    }
+
     handleSubmitNewRecipe(event) {
         event.preventDefault();
+        const recipe = {
+            id: -1,
+            title: this.state.title,
+            ingredients: [],
+            instructions: [],
+        }
+        this.props.handleAddRecipe(recipe);
+        this.setState({title: "",});
+    }
+
+    handleInputChangeRecipeTitle(event) {
+        this.setState({title: event.target.value});
     }
 
     render() {
+        const currentRecipe = this.props.currentRecipe;
+        const recipes = this.props.recipes.map( (item, step) => {
+            return (
+                <li key={item.id} className={currentRecipe === item.id ? "active" : ""}>
+                    <div onClick={() => this.props.handleSelectRecipe(item.id)}>{item.title}</div>
+                    <button type="button" onClick={() => this.props.handleRemoveRecipe(item.id)}>
+                        <FaTrash/>
+                    </button>
+                </li>
+            );
+        });
         return (
             <section className="recipe-master">
 
                 <h2>Recipes</h2>
 
                 <ul>
-                    <li className="active"><div>Recipe 1</div><button type="button">
-                      <FaTrash/></button>
-                    </li>
-                    <li><div>Recipe 2</div><button type="button"><FaTrash/></button></li>
-                    <li><div>Recipe 3</div><button type="button"><FaTrash/></button></li>
+                    {recipes}
                 </ul>
                 <form onSubmit={(e) => this.handleSubmitNewRecipe(e)}
                         className="recipe-add">
                     <div><button type="submit"><FaPlusSquare /></button></div>
-                    <div><input placeholder="Add Recipe..." /></div>
+                    <div>
+                        <input name="title" required placeholder="Add Recipe..." 
+                            value={this.state.title} onChange={this.handleInputChangeRecipeTitle}/>
+                    </div>
                 </form>
             </section>
         );
     }
+}
+
+RecipeMaster.propTypes = {
+    currentRecipe: PropTypes.number.isRequired,
+    recipes: PropTypes.array.isRequired,
+    handleAddRecipe: PropTypes.func.isRequired,
 }
 
 class RecipeDetail extends Component {
@@ -66,14 +144,14 @@ class RecipeDetail extends Component {
         let ingredients;
         let instructions;
 
-        if (this.props.recipe.title) {
+        if (this.props.recipe !== null) {
             title = this.props.recipe.title;
             ingredients = this.props.recipe.ingredients.map((item, step) => { 
                 return (
-                    <li key={step}>
-                        <div className="content">{item}</div>
-                        <div className="amount">{step}</div>
-                        <div className="unit">{item}{item}</div>
+                    <li key={item.id}>
+                        <div className="content">{item.name}</div>
+                        <div className="amount">{item.quantity}</div>
+                        <div className="unit">{item.unit}</div>
                         <button type="button"><FaTrash/></button>
                     </li>
                 )
@@ -92,7 +170,7 @@ class RecipeDetail extends Component {
         return (
             <section className="recipe-detail">
                 {
-                    this.props.recipe.title ?
+                    this.props.recipe !== null ?
                     <React.Fragment>
                         <div className="detail-title">
                             <div>{title}</div>

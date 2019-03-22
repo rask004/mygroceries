@@ -8,6 +8,7 @@ class App extends Component {
 
     this.handleAddRecipe = this.handleAddRecipe.bind(this);
     this.handleRemoveRecipe = this.handleRemoveRecipe.bind(this);
+    this.handleUpdateRecipe = this.handleUpdateRecipe.bind(this);
 
     this.state = {
       products: [
@@ -115,15 +116,6 @@ class App extends Component {
     };
   }
 
-  render() {
-    return (
-      <div className="App">
-        <RecipesView recipes={this.state.recipes} products={this.state.products} 
-          handleAddRecipe={this.handleAddRecipe} handleRemoveRecipe={this.handleRemoveRecipe} />
-      </div>
-    );
-  }
-
   handleAddRecipe(recipe) {
     const recipes = this.state.recipes.slice();
     let maxId;
@@ -138,11 +130,28 @@ class App extends Component {
     });
   }
 
+  handleUpdateRecipe(recipe) {
+    const recipes = this.state.recipes.slice();
+    const index = recipes.findIndex(x => x.id === recipe.id);
+    recipes[index] =recipe;
+    this.setState({recipes: recipes});
+  }
+
   handleRemoveRecipe(id) {
     const recipes = this.state.recipes.slice();
     const index = recipes.findIndex(x => x.id === id);
     recipes.splice(index, 1);
     this.setState({recipes: recipes,});
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <RecipesView recipes={this.state.recipes} products={this.state.products} 
+          handleAddRecipe={this.handleAddRecipe} handleRemoveRecipe={this.handleRemoveRecipe}
+          handleUpdateRecipe={this.handleUpdateRecipe} />
+      </div>
+    );
   }
 }
 

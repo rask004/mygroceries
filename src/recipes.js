@@ -1,25 +1,23 @@
 import React, { Component } from 'react';
 import './recipes.css';
-import {FaPencilAlt, FaTrash, FaPlusSquare} from 'react-icons/fa';
+import {FaPencilAlt, FaTrash, FaPlusSquare, FaSave, FaBan} from 'react-icons/fa';
 import PropTypes from 'prop-types';
 
 class RecipesView extends Component {
     constructor(props) {
         super(props);
 
-        this.handleAddRecipe = this.handleAddRecipe.bind(this);
         this.handleSelectRecipe = this.handleSelectRecipe.bind(this);
         this.handleRemoveRecipe = this.handleRemoveRecipe.bind(this);
+        
         const id = props.recipes.length > 0 ?
             props.recipes[0].id :
             -1;
         this.state = {
             selectedRecipeId: id,
         }
-    }
 
-    handleAddRecipe(recipe) {
-        this.props.handleAddRecipe(recipe);
+        this.newTitle = React.createRef();
     }
 
     handleRemoveRecipe(id) {
@@ -59,7 +57,7 @@ class RecipesView extends Component {
                   handleAddRecipe={this.props.handleAddRecipe} 
                   handleSelectRecipe={this.handleSelectRecipe}
                   handleRemoveRecipe={this.handleRemoveRecipe} />
-                <RecipeDetail recipe={recipe} />
+                <RecipeDetail recipe={recipe} handleUpdateRecipe={this.props.handleUpdateRecipe}/>
             </div>            
         );
     }
@@ -135,8 +133,85 @@ RecipeMaster.propTypes = {
 
 class RecipeDetail extends Component {
 
+    constructor(props) {
+        super(props);
+
+        let value;
+        props.recipe.title ?
+        value = props.recipe.title :
+        value = "";
+
+        this.state = {
+            isEditingTitle: false,
+            newTitle: value,
+            newInstruction: "",
+            editingInstruction: -1,
+            editedInstructionText: "",
+        }
+
+        this.handleSubmitNewInstruction = this.handleSubmitNewInstruction.bind(this);
+        this.handleToggleTitleForm = this.handleToggleTitleForm.bind(this);
+        this.handleSubmitNewTitle = this.handleSubmitNewTitle.bind(this);
+        this.handleFormChange = this.handleFormChange.bind(this);
+        this.handleRemoveInstruction = this.handleRemoveInstruction.bind(this);
+        this.handleToggleEditingInstruction = this.handleToggleEditingInstruction.bind(this);
+        this.handleCancelEditingInstruction = this.handleCancelEditingInstruction.bind(this);
+        this.handleSaveEditedInstruction = this.handleSaveEditedInstruction.bind(this);
+    }
+
+    handleCancelEditingInstruction() {
+        this.setState({editingInstruction: -1});
+    }
+
+    handleToggleEditingInstruction(index) {
+        this.setState({
+            editingInstruction: index,
+            editedInstructionText: this.props.recipe.instructions[index],
+        });
+    }
+
+    handleSaveEditedInstruction(event, index) {
+        event.preventDefault();
+        const recipe = this.props.recipe;
+        recipe.instructions[index] = this.state.editedInstructionText;
+        this.props.handleUpdateRecipe(recipe);
+        this.setState({
+            editingInstruction: -1,
+            editedInstructionText: "",
+        });
+    }
+
     handleSubmitNewInstruction(event) {
         event.preventDefault();
+        const recipe = this.props.recipe;
+        recipe.instructions.push(this.state.newInstruction);
+        this.props.handleUpdateRecipe(recipe);
+        this.setState({newInstruction: "" });
+    }
+
+    handleToggleTitleForm(event) {
+        this.setState({isEditingTitle: !this.state.isEditingTitle });
+    }
+
+    handleRemoveInstruction(index) {
+        const recipe = this.props.recipe;
+        recipe.instructions.splice(index, 1);
+        this.props.handleUpdateRecipe(recipe);
+    }
+
+    handleSubmitNewTitle(event) {
+        event.preventDefault();
+        const recipe = this.props.recipe;
+        recipe.title = this.state.newTitle;
+        this.props.handleUpdateRecipe(recipe);
+        this.setState({isEditingTitle: !this.state.isEditingTitle });
+    }
+
+    handleFormChange(event) {
+        const target = event.target;
+        const name = target.name;
+        const value = target.value;
+        this.setState({[name]: value});
     }
 
     render() {
@@ -159,9 +234,24 @@ class RecipeDetail extends Component {
             instructions = this.props.recipe.instructions.map((item, step) => { 
                 return (
                     <li key={step}>
-                      <div className="content">{step + 1}. {item}</div>
-                      <button type="button"><FaPencilAlt/></button>
-                      <button type="button"><FaTrash/></button>
+                        {
+                            this.state.editingInstruction === step ?
+                            <React.Fragment>
+                                <form className="detail-instruction" onSubmit={(e) => this.handleSaveEditedInstruction(e, step)}>
+                                    <input value={this.state.editedInstructionText} onChange={this.handleFormChange}
+                                        name="editedInstructionText" required placeholder="There must be an instruction here." />
+                                    <button type="submit"
+                                        ><FaSave/></button>
+                                    <button type="button" 
+                                        onClick={this.handleCancelEditingInstruction}><FaBan/></button>
+                                </form>
+                            </React.Fragment> :
+                            <React.Fragment>
+                                <div className="content">{step + 1}. {item}</div>
+                                <button type="button" onClick={() => this.handleToggleEditingInstruction(step)}><FaPencilAlt/></button>
+                                <button type="button" onClick={() => this.handleRemoveInstruction(step)}><FaTrash/></button>
+                            </React.Fragment>
+                        }
                     </li>
                 )
             });
@@ -172,10 +262,20 @@ class RecipeDetail extends Component {
                 {
                     this.props.recipe !== null ?
                     <React.Fragment>
-                        <div className="detail-title">
-                            <div>{title}</div>
-                            <button type="button"><FaPencilAlt/></button>
-                        </div>
+                        {
+                            !this.state.isEditingTitle ?
+                            <div className="detail-title">
+                                <div onClick={this.handleToggleTitleForm}>{title}</div> 
+                            </div> :
+                            <form className="detail-title" onSubmit={this.handleSubmitNewTitle}>
+                                <input value={this.state.newTitle} onChange={this.handleFormChange}
+                                    name="newTitle" required placeholder="Recipe Title" />
+                                <button type="submit"
+                                    ><FaSave/></button>
+                                <button type="button" 
+                                    onClick={this.handleToggleTitleForm}><FaBan/></button>
+                            </form>
+                        }
 
                         <div className="detail-ingredients">
                             <p>Ingredients</p>
@@ -190,10 +290,13 @@ class RecipeDetail extends Component {
                             <ol>
                                 {instructions}
                             </ol>
-                            <form onSubmit={(e) => this.handleSubmitNewInstruction(e)} 
+                            <form onSubmit={this.handleSubmitNewInstruction} 
                                     className="instruction-add">
-                                <button type="button"><FaPlusSquare/></button>
-                                <input placeholder="new instruction..." />
+                                <button type="submit"><FaPlusSquare/></button>
+                                <input name="newInstruction" required
+                                    value={this.state.newInstruction} 
+                                    onChange={this.handleFormChange}
+                                    placeholder="new instruction..." />
                             </form>
                         </div>
                     </React.Fragment> :

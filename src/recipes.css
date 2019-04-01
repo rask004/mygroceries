@@ -235,6 +235,10 @@ input {
     right: 1em;
 }
 
+.message-pane {
+    text-align: center;
+}
+
 .add-ingredient .button-pane button {
     padding: 1em;
 }

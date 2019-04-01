@@ -59,7 +59,9 @@ class RecipesView extends Component {
                   handleSelectRecipe={this.handleSelectRecipe}
                   handleRemoveRecipe={this.handleRemoveRecipe} />
                 <RecipeDetail recipe={recipe} handleUpdateRecipe={this.props.handleUpdateRecipe}
+                products={this.props.products}
                 handleAddNewIngredient={this.props.handleAddNewIngredient}
+                handleRemoveIngredient={this.props.handleRemoveIngredient}
                 hasIngredient={this.props.hasIngredient} />
             </div>            
         );
@@ -212,7 +214,7 @@ class RecipeDetail extends Component {
         this.setState({newInstruction: "" });
     }
 
-    handleToggleTitleForm(event) {
+    handleToggleTitleForm() {
         this.setState({isEditingTitle: !this.state.isEditingTitle });
     }
 
@@ -248,7 +250,6 @@ class RecipeDetail extends Component {
 
     handleSubmitIngredient(event) {
         event.preventDefault();
-        this.setState({showNewIngredientModal: !this.state.showNewIngredientModal});
         const newIngredient = this.state.newIngredient;
         let id;
         id = this.props.hasIngredient(newIngredient);
@@ -258,13 +259,27 @@ class RecipeDetail extends Component {
 
         const recipe = this.props.recipe;
         const ingredients = recipe.ingredients.slice();
-        const recipeIngredient = {
-            id: id, 
-            quantity: this.state.newIngredientQuantity,
-            unit: this.state.newIngredientUnit,
-        }
+        const existingIngredientIndex = ingredients.findIndex(x => x.id === id)
+        if (existingIngredientIndex < 0) {
+            const recipeIngredient = {
+                id: id, 
+                quantity: this.state.newIngredientQuantity,
+                unit: this.state.newIngredientUnit,
+            }
+            ingredients.push(recipeIngredient);
+            this.setState({showNewIngredientModal: !this.state.showNewIngredientModal});
 
-        ingredients.push(recipeIngredient);
+        } else if ( ingredients[existingIngredientIndex].unit === this.state.newIngredientUnit) {
+            let count = Number(ingredients[existingIngredientIndex].quantity);
+            count += Number(this.state.newIngredientQuantity);
+            ingredients[existingIngredientIndex].quantity = count.toString();
+            alert("Ingredient already exists. The quantity of the existing ingredient will be updated.");
+            this.setState({showNewIngredientModal: !this.state.showNewIngredientModal});
+
+        } else {
+            alert("Error: You tried adding an existing ingredient with a different unit, which is not allowed. The existing ingredient has units of '" + ingredients[existingIngredientIndex].unit + "'");
+        }
+        
         recipe.ingredients = ingredients;
         this.props.handleUpdateRecipe(recipe);
     }
@@ -273,6 +288,12 @@ class RecipeDetail extends Component {
         let title;
         let ingredients;
         let instructions;
+        let names;
+        let countries;
+        let categories;
+        let subcategories;
+        let defaultUnits;
+        let brands;
 
         if (this.props.recipe !== null) {
             title = this.props.recipe.title;
@@ -282,7 +303,10 @@ class RecipeDetail extends Component {
                         <div className="content">{item.name}</div>
                         <div className="amount">{item.quantity}</div>
                         <div className="unit">{item.unit}</div>
-                        <button type="button"><FaTrash/></button>
+                        <button type="button" 
+                            onClick={() => this.props.handleRemoveIngredient(this.props.recipe.id, item.id)}>
+                          <FaTrash/>
+                        </button>
                     </li>
                 )
             });
@@ -308,6 +332,54 @@ class RecipeDetail extends Component {
                     </li>
                 )
             });
+
+            names = this.props.products.map( item => item.name);
+            names = Array.from(new Set(names));
+            names = names.sort().map( (item, step) => {
+                return (
+                    <option key={step} value={item} />
+                )
+            });
+
+            countries = this.props.products.map( item => item.coo);
+            countries = Array.from(new Set(countries));
+            countries = countries.sort().map( (item, step) => {
+                return (
+                    <option key={step} value={item} />
+                )
+            });
+
+            categories = this.props.products.map( item => item.category);
+            categories = Array.from(new Set(categories));
+            categories = categories.sort().map( (item, step) => {
+                return (
+                    <option key={step} value={item} />
+                )
+            });
+
+            subcategories = this.props.products.map( item => item.subcategory);
+            subcategories = Array.from(new Set(subcategories));
+            subcategories = subcategories.map( (item, step) => {
+                return (
+                    <option key={step} value={item} />
+                )
+            });
+
+            brands = this.props.products.map( item => item.brand);
+            brands = Array.from(new Set(brands));
+            brands = brands.map( (item, step) => {
+                return (
+                    <option key={step} value={item} />
+                )
+            });
+
+            defaultUnits = this.props.products.map( item => item.defaultUnit);
+            defaultUnits = Array.from(new Set(defaultUnits));
+            defaultUnits = defaultUnits.map( (item, step) => {
+                return (
+                    <option key={step} value={item} />
+                )
+            });
         }
 
         return (
@@ -318,7 +390,7 @@ class RecipeDetail extends Component {
                         {
                             !this.state.isEditingTitle ?
                             <div className="detail-title">
-                                <div onClick={this.handleToggleTitleForm}>{title}</div> 
+                                <div onClick={(e) => this.handleToggleTitleForm}>{title}</div> 
                             </div> :
                             <form className="detail-title" onSubmit={this.handleSubmitNewTitle}>
                                 <input value={this.state.newTitle} onChange={this.handleFormChange}
@@ -326,7 +398,7 @@ class RecipeDetail extends Component {
                                 <button type="submit"
                                     ><FaSave/></button>
                                 <button type="button" 
-                                    onClick={this.handleToggleTitleForm}><FaRegTimesCircle/></button>
+                                    onClick={(e) => this.handleToggleTitleForm}><FaRegTimesCircle/></button>
                             </form>
                         }
 
@@ -359,7 +431,7 @@ class RecipeDetail extends Component {
                 }
                 <Modal show={this.state.showNewIngredientModal} onClose={(e) => this.toggleModal()}>
                     <section className="add-ingredient">
-                        <form onSubmit={this.handleSubmitIngredient}>
+                        <form onSubmit={this.handleSubmitIngredient} autoComplete="off">
                             <div className="title">Add Ingredient</div>
                             <div className="row">
                                 <label className="col-1">Name:</label>
@@ -369,6 +441,7 @@ class RecipeDetail extends Component {
                                   onChange={this.handleAddIngredientChange}
                                   value={this.state.newIngredient.name} />
                                 <datalist id="names">
+                                    {names}
                                 </datalist>
                             </div>
                             <div className="row">
@@ -379,6 +452,7 @@ class RecipeDetail extends Component {
                                   onChange={this.handleAddIngredientChange}
                                   value={this.state.newIngredient.category}/>
                                 <datalist id="categories">
+                                    {categories}
                                 </datalist>
                                 <label className="col-4">Subcategory:</label>
                                 <input className="col-5" required 
@@ -387,6 +461,7 @@ class RecipeDetail extends Component {
                                   onChange={this.handleAddIngredientChange}
                                   value={this.state.newIngredient.subcategory}/>
                                 <datalist id="subcategories">
+                                    {subcategories}
                                 </datalist>
                             </div>
                             <div className="row">
@@ -396,6 +471,7 @@ class RecipeDetail extends Component {
                                   onChange={this.handleAddIngredientChange}
                                   value={this.state.newIngredient.brand}/>
                                 <datalist id="brands">
+                                    {brands}
                                 </datalist>
                                 <input className="col-5" 
                                   required name="coo" placeholder="country of origin" 
@@ -403,6 +479,7 @@ class RecipeDetail extends Component {
                                   onChange={this.handleAddIngredientChange}
                                   value={this.state.newIngredient.coo}/>
                                 <datalist id="coo-sources">
+                                    {countries}
                                 </datalist>
                             </div>
                             <div className="row"></div>
@@ -414,6 +491,7 @@ class RecipeDetail extends Component {
                                   onChange={this.handleAddIngredientChange}
                                   value={this.state.newIngredient.defaultunit}/>
                                 <datalist id="unit-defaults">
+                                    {defaultUnits}
                                 </datalist>
                             </div>
                             <div className="row"></div>
@@ -454,6 +532,7 @@ RecipeDetail.propTypes = {
     handleUpdateRecipe: PropTypes.func.isRequired,
     hasIngredient: PropTypes.func.isRequired,
     handleAddNewIngredient: PropTypes.func.isRequired,
+    handleRemoveIngredient: PropTypes.func.isRequired,
     recipe: PropTypes.object,
 }
 

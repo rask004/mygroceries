@@ -11,6 +11,7 @@ class App extends Component {
     this.handleUpdateRecipe = this.handleUpdateRecipe.bind(this);
     this.addIngredient = this.addIngredient.bind(this);
     this.hasIngredient = this.hasIngredient.bind(this);
+    this.removeIngredient = this.removeIngredient.bind(this);
 
     this.state = {
       products: [
@@ -171,12 +172,23 @@ class App extends Component {
     return ingredient.id;
   }
 
+  removeIngredient(recipeId, ingredientId) {
+    const recipes = this.state.recipes;
+    const recipeIndex = recipes.findIndex(x => x.id === recipeId);
+    const ingredients = recipes[recipeIndex].ingredients
+    const ingredientIndex = ingredients.findIndex(x => x.id === ingredientId);
+    ingredients.splice(ingredientIndex, 1);
+    recipes[recipeIndex].ingredients = ingredients;
+    this.setState({recipes: recipes});
+  }
+
   render() {
     return (
       <div className="App">
         <RecipesView recipes={this.state.recipes} products={this.state.products} 
           handleAddRecipe={this.handleAddRecipe} handleRemoveRecipe={this.handleRemoveRecipe}
           handleUpdateRecipe={this.handleUpdateRecipe} hasIngredient={this.hasIngredient}
+          handleRemoveIngredient={this.removeIngredient}
           handleAddNewIngredient={this.addIngredient} />
       </div>
     );

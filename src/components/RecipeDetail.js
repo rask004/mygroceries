@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {OrderedList, OrderedListAddButton} from '../ui/lists';
-import {AddForm} from '../ui/forms';
+import {AddForm, EditableTextItem} from '../ui/forms';
 import {FaPencilAlt, FaTrash, FaSave, FaRegTimesCircle} from 'react-icons/fa';
 
 
@@ -137,13 +137,27 @@ class IngredientsSection extends Component {
     }
 }
 
-InstructionsSection.propTypes = {
+IngredientsSection.propTypes = {
     addIngredient: PropTypes.func.isRequired,
     removeIngredient: PropTypes.func.isRequired,
     ingredients: PropTypes.array.isRequired,
 }
 
 
-export {InstructionsSection, IngredientsSection};
+class TitleSection extends Component {
+    render() {
+        return (
+            <EditableTextItem 
+                className="detail-title"
+                updateText={this.props.updateTitle}
+                text={this.props.title}
+                placeholder="Recipe Title"
+            />
+        );
+    }
+}
+
+
+export {InstructionsSection, IngredientsSection, TitleSection};
 
 

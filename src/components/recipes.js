@@ -4,7 +4,7 @@ import {IconContext} from 'react-icons';
 import {FaTrash, FaPlusSquare, FaSave, FaRegTimesCircle} from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import Modal from '../ui/modal';
-import { InstructionsSection, IngredientsSection } from './RecipeDetail';
+import { InstructionsSection, IngredientsSection, TitleSection } from './RecipeDetail';
 
 
 class RecipesView extends Component {
@@ -152,7 +152,6 @@ class RecipeDetail extends Component {
         value = "";
 
         this.state = {
-            isEditingTitle: false,
             newTitle: value,
             showNewIngredientModal: false,
             newIngredient: {
@@ -168,7 +167,6 @@ class RecipeDetail extends Component {
         }
 
         this.handleSubmitNewInstruction = this.handleSubmitNewInstruction.bind(this);
-        this.handleToggleTitleForm = this.handleToggleTitleForm.bind(this);
         this.handleSubmitNewTitle = this.handleSubmitNewTitle.bind(this);
         this.handleFormChange = this.handleFormChange.bind(this);
         this.handleRemoveInstruction = this.handleRemoveInstruction.bind(this);
@@ -195,22 +193,16 @@ class RecipeDetail extends Component {
         this.props.handleUpdateRecipe(recipe);
     }
 
-    handleToggleTitleForm() {
-        this.setState({isEditingTitle: !this.state.isEditingTitle });
-    }
-
     handleRemoveInstruction(index) {
         const recipe = this.props.recipe;
         recipe.instructions.splice(index, 1);
         this.props.handleUpdateRecipe(recipe);
     }
 
-    handleSubmitNewTitle(event) {
-        event.preventDefault();
+    handleSubmitNewTitle(title) {
         const recipe = this.props.recipe;
-        recipe.title = this.state.newTitle;
+        recipe.title = title;
         this.props.handleUpdateRecipe(recipe);
-        this.setState({isEditingTitle: !this.state.isEditingTitle });
     }
 
     handleFormChange(event) {
@@ -341,20 +333,7 @@ class RecipeDetail extends Component {
                 {
                     this.props.recipe !== null ?
                     <React.Fragment>
-                        {
-                            !this.state.isEditingTitle ?
-                            <div className="detail-title">
-                                <div onClick={(e) => this.handleToggleTitleForm}>{title}</div> 
-                            </div> :
-                            <form className="detail-title" onSubmit={this.handleSubmitNewTitle}>
-                                <input value={this.state.newTitle} onChange={this.handleFormChange}
-                                    name="newTitle" required placeholder="Recipe Title" />
-                                <button type="submit"
-                                    ><FaSave/></button>
-                                <button type="button" 
-                                    onClick={(e) => this.handleToggleTitleForm}><FaRegTimesCircle/></button>
-                            </form>
-                        }
+                        <TitleSection title={title} updateTitle={this.handleSubmitNewTitle}  />
 
                         <IngredientsSection 
                             ingredients={ingredients}

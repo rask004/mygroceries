@@ -57,7 +57,7 @@ OrderedListAddButton.propTypes = {
         PropTypes.node
     ]).isRequired,
     onClick: PropTypes.func.isRequired,
-    buttonTitle: PropTypes.func.isRequired,
+    buttonTitle: PropTypes.string.isRequired,
 }
 
 

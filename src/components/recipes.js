@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import './recipes.css';
+import '../css/recipes.css';
 import {IconContext} from 'react-icons';
-import {FaPencilAlt, FaTrash, FaPlusSquare, FaSave, FaRegTimesCircle} from 'react-icons/fa';
+import {FaTrash, FaPlusSquare, FaSave, FaRegTimesCircle} from 'react-icons/fa';
 import PropTypes from 'prop-types';
+import Modal from '../ui/modal';
+import { InstructionsSection, IngredientsSection } from './RecipeDetail';
+
 
 class RecipesView extends Component {
     constructor(props) {
@@ -151,9 +154,6 @@ class RecipeDetail extends Component {
         this.state = {
             isEditingTitle: false,
             newTitle: value,
-            newInstruction: "",
-            editingInstruction: -1,
-            editedInstructionText: "",
             showNewIngredientModal: false,
             newIngredient: {
                 name: "",
@@ -172,46 +172,27 @@ class RecipeDetail extends Component {
         this.handleSubmitNewTitle = this.handleSubmitNewTitle.bind(this);
         this.handleFormChange = this.handleFormChange.bind(this);
         this.handleRemoveInstruction = this.handleRemoveInstruction.bind(this);
-        this.handleToggleEditingInstruction = this.handleToggleEditingInstruction.bind(this);
-        this.handleCancelEditingInstruction = this.handleCancelEditingInstruction.bind(this);
-        this.handleSaveEditedInstruction = this.handleSaveEditedInstruction.bind(this);
+        this.handleSaveInstruction = this.handleSaveInstruction.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
         this.handleAddIngredientChange = this.handleAddIngredientChange.bind(this);
         this.handleSubmitIngredient = this.handleSubmitIngredient.bind(this);
+        this.handleRemoveIngredient = this.handleRemoveIngredient.bind(this);
     }
 
     toggleModal() {
         this.setState({showNewIngredientModal: !this.state.showNewIngredientModal});
     }
 
-    handleCancelEditingInstruction() {
-        this.setState({editingInstruction: -1});
-    }
-
-    handleToggleEditingInstruction(index) {
-        this.setState({
-            editingInstruction: index,
-            editedInstructionText: this.props.recipe.instructions[index],
-        });
-    }
-
-    handleSaveEditedInstruction(event, index) {
-        event.preventDefault();
+    handleSaveInstruction(index, text) {
         const recipe = this.props.recipe;
-        recipe.instructions[index] = this.state.editedInstructionText;
+        recipe.instructions[index] = text;
         this.props.handleUpdateRecipe(recipe);
-        this.setState({
-            editingInstruction: -1,
-            editedInstructionText: "",
-        });
     }
 
-    handleSubmitNewInstruction(event) {
-        event.preventDefault();
+    handleSubmitNewInstruction(text) {
         const recipe = this.props.recipe;
-        recipe.instructions.push(this.state.newInstruction);
+        recipe.instructions.push(text);
         this.props.handleUpdateRecipe(recipe);
-        this.setState({newInstruction: "" });
     }
 
     handleToggleTitleForm() {
@@ -246,6 +227,11 @@ class RecipeDetail extends Component {
         const newIngredient = this.state.newIngredient;
         newIngredient[name] = value;
         this.setState({newIngredient: newIngredient});
+    }
+
+    handleRemoveIngredient(id) {
+        const recipeId = this.props.recipe.id;
+        this.props.handleRemoveIngredient(recipeId, id);
     }
 
     handleSubmitIngredient(event) {
@@ -297,41 +283,9 @@ class RecipeDetail extends Component {
 
         if (this.props.recipe !== null) {
             title = this.props.recipe.title;
-            ingredients = this.props.recipe.ingredients.map((item, step) => { 
-                return (
-                    <li key={item.id}>
-                        <div className="content">{item.name}</div>
-                        <div className="amount">{item.quantity}</div>
-                        <div className="unit">{item.unit}</div>
-                        <button type="button" 
-                            onClick={() => this.props.handleRemoveIngredient(this.props.recipe.id, item.id)}>
-                          <FaTrash/>
-                        </button>
-                    </li>
-                )
-            });
-            instructions = this.props.recipe.instructions.map((item, step) => { 
-                return (
-                    <li key={step}>
-                        {
-                            this.state.editingInstruction === step ?
-                            <form className="detail-instruction" onSubmit={(e) => this.handleSaveEditedInstruction(e, step)}>
-                                <input value={this.state.editedInstructionText} onChange={this.handleFormChange}
-                                    name="editedInstructionText" required placeholder="There must be an instruction here." />
-                                <button type="submit"
-                                    ><FaSave/></button>
-                                <button type="button" 
-                                    onClick={this.handleCancelEditingInstruction}><FaRegTimesCircle/></button>
-                            </form> :
-                            <div className="detail-instruction">
-                                <div className="content">{item}</div>
-                                <button type="button" onClick={() => this.handleToggleEditingInstruction(step)}><FaPencilAlt/></button>
-                                <button type="button" onClick={() => this.handleRemoveInstruction(step)}><FaTrash/></button>
-                            </div>
-                        }
-                    </li>
-                )
-            });
+
+            ingredients = this.props.recipe.ingredients.slice();
+            instructions = this.props.recipe.instructions.slice();
 
             names = this.props.products.map( item => item.name);
             names = Array.from(new Set(names));
@@ -402,28 +356,19 @@ class RecipeDetail extends Component {
                             </form>
                         }
 
-                        <div className="detail-ingredients">
-                            <p>Ingredients</p>
-                            <ul>
-                                {ingredients}
-                            </ul>
-                            <button type="button" onClick={this.toggleModal}>Add Ingredient...</button>
-                        </div>
+                        <IngredientsSection 
+                            ingredients={ingredients}
+                            addIngredient={this.toggleModal}
+                            removeIngredient={this.handleRemoveIngredient}
+                        />
 
-                        <div className="detail-instructions">
-                            <p>Instructions</p>
-                            <ol>
-                                {instructions}
-                            </ol>
-                            <form onSubmit={this.handleSubmitNewInstruction} 
-                                    className="instruction-add">
-                                <button type="submit"><FaPlusSquare/></button>
-                                <input name="newInstruction" required
-                                    value={this.state.newInstruction} 
-                                    onChange={this.handleFormChange}
-                                    placeholder="new instruction..." />
-                            </form>
-                        </div>
+                        <InstructionsSection 
+                            instructions={instructions}
+                            saveInstruction={this.handleSaveInstruction}
+                            removeInstruction={this.handleRemoveInstruction}
+                            addInstruction={this.handleSubmitNewInstruction}
+                        />
+
                     </React.Fragment> :
                     <div>
                         <p>No recipe is selected.</p>
@@ -534,38 +479,6 @@ RecipeDetail.propTypes = {
     handleAddNewIngredient: PropTypes.func.isRequired,
     handleRemoveIngredient: PropTypes.func.isRequired,
     recipe: PropTypes.object,
-}
-
-class Modal extends Component {
-    render() {
-        return (
-            <React.Fragment>
-            {
-                !this.props.show ?
-                "" :
-                <div className="modal-background">
-                    <button type="button" 
-                      className="modal-button-close" 
-                      onClick={this.props.onClose}>
-                        <IconContext.Provider value={{color: "white", size: "3em"}}>
-                            <FaRegTimesCircle/>
-                        </IconContext.Provider>
-                    </button>
-                    <div className="modal">
-                      {this.props.children}
-                    </div>
-                    <div className="modal-shadow">
-                    </div>
-                </div>
-            }
-            </React.Fragment>
-        )
-    }
-}
-
-Modal.propTypes = {
-    onClose: PropTypes.func,
-    show: PropTypes.bool,
 }
 
 export default RecipesView;

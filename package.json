@@ -1,18 +1,27 @@
 {
   "name": "mygroceries",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^3.9.3",
+    "isomorphic-fetch": "^2.2.1",
+    "lodash": "^4.17.11",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-icons": "^3.5.0",
-    "react-scripts": "2.1.8",
-    "typescript": "^3.3.3333"
+    "react-redux": "^7.0.2",
+    "react-router": "^5.0.0",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "^2.1.8",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
+    "typeface-roboto": "0.0.54"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "coverage": "react-scripts test --coverage",
     "eject": "react-scripts eject",
     "commit": "git add ./src/ package* yarn* README* .gitignore ./public/ && git commit"
   },
@@ -24,5 +33,14 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.12.1",
+    "jest": "^23.6.0",
+    "jest-dom": "^3.1.4",
+    "react-test-renderer": "^16.8.6",
+    "react-testing-library": "^7.0.0",
+    "typescript": "^3.4.5"
+  }
 }

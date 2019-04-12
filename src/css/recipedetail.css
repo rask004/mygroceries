@@ -1,0 +1,62 @@
+.recipe-detail {
+    border-radius: 0.25em;
+    background-color: #B0B0FF;
+    background-image: linear-gradient(to bottom right, #B0B0FF, #C8C8FF);
+    padding: 1em 1em 1.5em 1.5em;
+    flex-grow: 6;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.recipe-detail h2 {
+    margin-top: 2em;
+}
+
+.recipe-detail ul, .recipe-detail ol {
+    margin: 1.25em 0;
+}
+
+.recipe-detail li {
+    padding: 0.5em 0 0.25em;
+}
+
+.recipe-detail li div > span {
+    padding: 0.25em 0;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.recipe-detail li .detail-content-buttons {
+    justify-content: flex-end;
+}
+
+.recipe-detail .detail-title {
+    margin: 0.55em 0 0.1em;
+    padding: 0.25em 0 0;
+}
+
+.recipe-detail .detail-ingredients {
+    margin-bottom: 2em;
+}
+
+.recipe-detail .detail-instructions {
+    margin-bottom: 1em;
+}
+
+.recipe-detail .instruction-add button {
+    margin: 0 0.5em 0 0;
+}
+
+.recipe-detail .instruction-add input {
+    width: 60%;
+}
+
+.detail-content {
+    padding-top: 0.5rem;
+}
+
+.testing {
+    background: yellow;
+}

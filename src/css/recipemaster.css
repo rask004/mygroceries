@@ -1,0 +1,55 @@
+.recipe-master {
+    border-radius: 0.25em;
+    background-color: #B0B0FF;
+    background-image: linear-gradient(to bottom right, #B0B0FF, #C8C8FF);
+    padding: 0.5em 0.5em 1.5em 0.5em;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-right: 0.5em;
+}
+
+.recipe-master  h1 {
+    margin: 0.5em;
+    padding: 0.5em;
+}
+
+.recipe-master  ul {
+    list-style-type: none;
+    margin: 0.5em 1em 0.5em 1em;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    flex-grow: 9;
+}
+
+.recipe-master li, .recipe-master form {
+    margin-left: 0;
+    margin-bottom: 0.75em;
+    border-radius: 0.25em;
+    padding: 0.5em;
+}
+
+.recipe-master li  {
+    display: flex;
+    justify-content: space-between;
+}
+
+.recipe-master form {
+    padding: 0.5em 0.5em 0 0.5em;
+}
+
+.recipe-master li div {
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.recipe-master .recipe-add {
+    margin: 1em;
+    display: flex;
+}
+
+.recipe-add button {
+    margin: 0 0.5em 0 0;
+}

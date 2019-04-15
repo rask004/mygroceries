@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {FaTrash, FaPlusSquare, FaPencilAlt, FaSave, FaRegTimesCircle} from 'react-icons/fa';
+import {FaPlusSquare, FaPencilAlt, FaSave, FaRegTimesCircle} from 'react-icons/fa';
 import PropTypes from 'prop-types';
 
 
@@ -35,6 +35,7 @@ class EditableTextItem extends Component {
 
         this.toggleEditing = this.toggleEditing.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onChange = this.onChange.bind(this);
     }
 
     toggleEditing(event) {
@@ -47,9 +48,14 @@ class EditableTextItem extends Component {
     }
 
     onSubmit(event) {
-        const text = this.state.text;
         event.preventDefault();
+        const text = this.state.text;
         this.props.updateText(text);
+        this.setState(
+            {
+                isEditing: !this.state.isEditing
+            }
+        );
     }
 
     onChange(event) {

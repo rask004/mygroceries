@@ -9,12 +9,6 @@ input {
     border-radius: 0.25em;
 }
 
-.recipes-view {
-    margin: 0.5rem;
-    display: flex;
-    min-height: 90%;
-}
-
 .recipe-master {
     border-radius: 0.25em;
     background-color: #B0B0FF;

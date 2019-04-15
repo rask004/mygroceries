@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../css/modal.css';
 import {IconContext} from 'react-icons';
 import {FaRegTimesCircle} from 'react-icons/fa';
 import PropTypes from 'prop-types';

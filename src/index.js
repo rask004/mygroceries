@@ -1,11 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import { Provider } from 'react-redux';
+import routes from './routes';
+import storeFactory from './store';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+// get any initial state
+import sampleData from './data/initialState.json';
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// set up any subscription functions.
+
+// get the store from the store factory, with initialState
+const store = storeFactory( sampleData? sampleData: {} );
+
+
+// subscribe to store as needed
+
+
+window.store = store;
+
+
+ReactDOM.render(
+    <Provider store={store}>
+        {routes}
+    </Provider>, 
+    document.getElementById('root')
+);
+

@@ -1,25 +1,30 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import {FaHome, FaUtensils, FaDrumstickBite} from 'react-icons/fa';
+import {IconContext} from 'react-icons';
 import '../../css/navbar.css';
+import Button from '@material-ui/core/Button';
 
 
 class NavigationBar extends Component {
     render() {
         return (
-            <div>
-                <ul>
-                    <li>
-                        <Link to="/">Home</Link>
-                    </li>
-                    <li>
-                        <Link to="/recipe/">Recipes</Link>
-                    </li>
-                    <li>
-                        <Link to="/ingredient/">Ingredients</Link>
-                    </li>
-                </ul>
-                <hr/>
-            </div>
+            <nav className="navbar">
+                <Button color="primary" size="small" variant="contained" href="/">
+                    <IconContext.Provider value={{size: "1.5em"}}>
+                        <FaHome/>
+                    </IconContext.Provider>
+                </Button>
+                <Button color="primary" size="small" variant="contained" href="/recipe/">
+                    <IconContext.Provider value={{size: "1.5em"}}>
+                        <FaUtensils/>
+                    </IconContext.Provider>
+                </Button>
+                <Button color="primary" size="small" variant="contained" href="/ingredient/">
+                    <IconContext.Provider value={{size: "1.5em"}}>
+                        <FaDrumstickBite/>
+                    </IconContext.Provider>
+                </Button>
+            </nav>
         )
     }
 }

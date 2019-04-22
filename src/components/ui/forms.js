@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import {FaPlusSquare, FaPencilAlt, FaSave, FaRegTimesCircle} from 'react-icons/fa';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
+import Input from '@material-ui/core/Input';
+import 'typeface-roboto';
 
 
 class AddForm extends Component {
@@ -8,7 +11,9 @@ class AddForm extends Component {
         return (
             <form onSubmit={this.props.addItem} 
                     className={ this.props.className ? this.props.className : "" }>
-                <button type="submit"><FaPlusSquare/></button>
+                <Button color="primary" size="medium" variant="contained" type="submit">
+                    <FaPlusSquare/>
+                </Button>
                 {this.props.children}
             </form>
         );
@@ -68,25 +73,29 @@ class EditableTextItem extends Component {
                 {
                     !this.state.isEditing ?
                     <div className={ this.props.className ? this.props.className : "" }>
-                        <div>{this.props.text}</div>
-                        <button 
+                        {this.props.text}
+                        <Button 
+                            color="primary" size="medium" variant="contained"
                             type="button" 
                             onClick={this.toggleEditing}>
                             <FaPencilAlt/>
-                        </button>
+                        </Button>
                     </div> :
                     <form 
                         className={ this.props.className ? this.props.className : "" }
                         onSubmit={this.onSubmit}>
-                        <input value={this.state.text} onChange={this.onChange} 
+                        <Input value={this.state.text} onChange={this.onChange} 
                             required name="text"
                             placeholder={this.props.placeholder ? this.props.placeholder : null} />
-                        <button type="submit"><FaSave/></button>
-                        <button 
+                        <Button 
+                            color="primary" size="medium" variant="contained"
+                            type="submit"><FaSave/></Button>
+                        <Button 
+                            color="primary" size="medium" variant="contained"
                             type="button" 
                             onClick={this.toggleEditing}>
                             <FaRegTimesCircle/>
-                        </button>
+                        </Button>
                     </form>
                 }
             </React.Fragment>
@@ -97,7 +106,10 @@ class EditableTextItem extends Component {
 EditableTextItem.propTypes = {
     className: PropTypes.string,
     updateText: PropTypes.func.isRequired,
-    text: PropTypes.string.isRequired,
+    text: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.node
+    ]).isRequired
 }
 
 

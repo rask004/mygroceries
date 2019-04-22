@@ -1,17 +1,41 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {FaTrash} from 'react-icons/fa';
-import '../../css/recipes.css';
 import {ListWithAddForm} from '../ui/lists';
-import {LinkButton} from '../ui/buttons';
 import PropTypes from 'prop-types';
 import { addRecipe, removeRecipe } from '../../store/actions';
+import Button from '@material-ui/core/Button';
+import ListItem from '@material-ui/core/ListItem';
+import Card from '@material-ui/core/Card';
+import Typography from '@material-ui/core/Typography';
+import 'typeface-roboto';
+import '../../css/recipemaster.css';
 
 
 class RecipeMaster extends Component {
 
     constructor(props) {
         super(props);
+
+        let currentId = -1;
+        if (this.props.location) {
+            const path = this.props.location.pathname.match(/\/recipe\/\d+/gi);
+            if (path !== null) {
+                currentId = Number(path[0].replace("/recipe/", "").replace("/", ""));
+                const ids = this.props.recipes.map(x => x.id);
+                if (ids.length > 0 && !ids.includes(currentId)) {
+                    this.props.history.push("/recipe/" + ids[0] + "/");
+                    currentId = ids[0];
+                }
+                else if (ids.length === 0) {
+                    this.props.history.push("/recipe/");
+                }
+            }
+        }
+
+        this.state = {
+            currentRecipeId: currentId,
+        }
 
         this.handleSubmitNewRecipe = this.handleSubmitNewRecipe.bind(this);
         this.handleSelectRecipe = this.handleSelectRecipe.bind(this);
@@ -32,34 +56,39 @@ class RecipeMaster extends Component {
     }
 
     render() {
-        const recipes = this.props.recipes.map( (item, step) => {
+        const recipes = this.props.recipes.map( (item) => {
             const id = Number(item.id);
             return (
-                <li key={id}>
-                    <div>
-                        <LinkButton 
-                            onClick={() => this.handleSelectRecipe(id)}
-                            targetUrl={"/recipe/" + id + "/"}
-                        >
-                            {item.title}
-                        </LinkButton>
-                    </div>
-                    <button type="button" onClick={() => this.handleRemoveRecipe(id)}>
+                <ListItem key={id} selected={id === this.state.currentRecipeId}>
+                    <Button color="default" size="medium" variant="text"
+                        onClick={() => this.handleSelectRecipe(id)}
+                        href={"/recipe/" + id + "/"}
+                        disableRipple={false}
+                        disableFocusRipple={false}
+                    >
+                        {item.title}
+                    </Button>
+                    <Button color="primary" size="medium" variant="contained"
+                        onClick={() => this.handleRemoveRecipe(id)}
+                        disableRipple={false}
+                        disableFocusRipple={false}
+                    >
                         <FaTrash/>
-                    </button>
-                </li>
+                    </Button>
+                </ListItem>
             );
         });
         return (
-            <section className="recipe-master">
+            <Card className="recipe-master">
 
-                <h2>Recipes</h2>
+                <Typography variant="display1" gutterBottom={true}>Recipes</Typography>
 
                 <ListWithAddForm orderedlist={false} placeholder="Add Recipe..."
                     classFormName="recipe-add" addItem={this.handleSubmitNewRecipe}>
                     {recipes}
                 </ListWithAddForm>
-            </section>
+
+            </Card>
         );
     }
 }

@@ -12,8 +12,9 @@ const RoutedRecipeDetail = withRouter(RecipeDetail);
 const routes = (
     <Router>
         <Route path="/" exact >
+            <div className="screen-view">
             <NavBar />
-            <div className="flex-view">
+            <main className="main-view">
                 <Switch>
                     <Route path="/recipe/">
                         <RoutedRecipeMaster />
@@ -26,6 +27,7 @@ const routes = (
                     <Route path="/shopping/">
                     </Route>
                 </Switch>
+            </main>
             </div>
         </Route>
     </Router>

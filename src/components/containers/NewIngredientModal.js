@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import Modal from '../ui/modal';
-import {IconContext} from 'react-icons';
 import {FaSave, FaRegTimesCircle} from 'react-icons/fa';
-import '../../css/modal.css';
-import '../../css/recipes.css';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import Typography from '@material-ui/core/Typography';
+import 'typeface-roboto';
+import '../../css/recipemodals.css';
 
 
 class NewIngredientModal extends Component {
@@ -20,22 +26,95 @@ class NewIngredientModal extends Component {
             defaultunit: "",
             quantity: 0,
             unit: "",
-        }
+            errors: {
+                name: true,
+                category: true,
+                subcategory: true,
+                coo: true,
+                brand: true,
+                defaultunit: true,
+                quantity: true,
+                unit: true,
+                message: "quantity requires a decimal or whole number greater than 0.",
+            },
+        };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.handleErrorChecking = this.handleErrorChecking.bind(this);
     }
 
     handleChange(event) {
         const target = event.target;
         const name = target.name;
         const value = target.value;
-        this.setState({[name]: value});
+
+        const newState = {[name]: value};
+        newState.errors = this.state.errors;
+        if(name === "defaultunit") {
+            newState.unit = value;
+            newState.errors.unit = false;
+        }
+        this.setState(newState);
+        this.handleErrorChecking(event);
+    }
+
+    handleErrorChecking(event) {
+        const target = event.target;
+        const name = target.name;
+        const value = target.value;
+        const errors = this.state.errors;
+
+        if(name !== undefined) {
+            if(name === "quantity") {
+                if (isNaN(value) || value === "") {
+                    errors[name] = true;
+                } else if (Number(value) <= 0) {
+                    errors[name] = true;
+                } else {
+                    errors[name] = false;
+                }
+            } else {
+                if (value === "") {
+                    errors[name] = true;
+                } else {
+                    errors[name] = false;
+                }
+            }
+        }
+
+        if(errors.quantity) {
+            errors.message = "quantity requires a decimal or whole number greater than 0.";
+        } else if (errors.name) {
+            errors.message = "ingredient name must have a value.";
+        } else if (errors.brand) {
+            errors.message = "brand must have a value.";
+        } else if (errors.category) {
+            errors.message = "category must have a value.";
+        } else if (errors.subcategory) {
+            errors.message = "subcategory must have a value.";
+        } else if (errors.coo) {
+            errors.message = "country of origin must have a value.";
+        } else if (errors.defaultunit) {
+            errors.message = "default unit must have a value.";
+        } else if (errors.unit) {
+            errors.message = "unit must have a value.";
+        } else {
+            errors.message = "";
+        }
+
+        this.setState({errors: errors});
     }
 
     handleSubmit(event) {
         event.preventDefault();
+        const errors = this.state.errors;
+        const isError = errors.brand || errors.category || errors.coo || errors.defaultunit
+                        || errors.name || errors.quantity || errors.subcategory || errors.unit;
+        if (isError) {
+            return false;
+        }
         const ingredient = {
             name: this.state.name,
             category: this.state.category,
@@ -47,7 +126,6 @@ class NewIngredientModal extends Component {
         const quantity = this.state.quantity;
         const unit = this.state.unit;
         const ingredientAdded = this.props.onAddIngredient(ingredient, quantity, unit);
-        // FIXME modal should clear on adding an ingredient, but not clear if no ingredient added.
         if (ingredientAdded) {
             this.setState({
                 name: "",
@@ -58,11 +136,21 @@ class NewIngredientModal extends Component {
                 defaultunit: "",
                 quantity: 0,
                 unit: "",
+                errors: {
+                    name: true,
+                    category: true,
+                    subcategory: true,
+                    coo: true,
+                    brand: true,
+                    defaultunit: true,
+                    quantity: true,
+                    unit: true,
+                }
             });
         }
     }
 
-    handleClose(event) {
+    handleClose() {
         this.setState({
             name: "",
             category: "",
@@ -72,6 +160,17 @@ class NewIngredientModal extends Component {
             defaultunit: "",
             quantity: 0,
             unit: "",
+            errors: {
+                name: true,
+                category: true,
+                subcategory: true,
+                coo: true,
+                brand: true,
+                defaultunit: true,
+                quantity: true,
+                unit: true,
+                message: "quantity requires a decimal or whole number greater than 0.",
+            }
         });
 
         this.props.onClose();
@@ -128,104 +227,231 @@ class NewIngredientModal extends Component {
         });
 
         return (
-            <Modal show={this.props.show} onClose={this.handleClose}>
-                <section className="add-ingredient">
-                    <form onSubmit={this.handleSubmit} autoComplete="off">
-                        <div className="title">Add Ingredient</div>
-                        <div className="row">
-                            <label className="col-1">Name:</label>
-                            <input className="col-2" required name="name"
-                                placeholder="name of ingredient" 
-                                list="names"
-                                onChange={this.handleChange}
-                                value={this.state.name} />
-                            <datalist id="names">
-                                {names}
-                            </datalist>
-                        </div>
-                        <div className="row">
-                            <label className="col-1">Category:</label>
-                            <input className="col-2" required 
-                                name="category" placeholder="category" 
-                                list="categories"
-                                onChange={this.handleChange}
-                                value={this.state.category}/>
-                            <datalist id="categories">
-                                {categories}
-                            </datalist>
-                            <label className="col-4">Subcategory:</label>
-                            <input className="col-5" required 
-                                name="subcategory" placeholder="subcategory" 
-                                list="subcategories"
-                                onChange={this.handleChange}
-                                value={this.state.subcategory}/>
-                            <datalist id="subcategories">
-                                {subcategories}
-                            </datalist>
-                        </div>
-                        <div className="row">
-                            <input className="col-2" 
-                                required name="brand" placeholder="brand" 
-                                list="brands"
-                                onChange={this.handleChange}
-                                value={this.state.brand}/>
-                            <datalist id="brands">
-                                {brands}
-                            </datalist>
-                            <input className="col-5" 
-                                required name="coo" placeholder="country of origin" 
-                                list="coo-sources"
-                                onChange={this.handleChange}
-                                value={this.state.coo}/>
-                            <datalist id="coo-sources">
-                                {countries}
-                            </datalist>
-                        </div>
-                        <div className="row"></div>
-                        <div className="row"></div>
-                        <div className="row">
-                            <input className="col-5" 
-                                required name="defaultunit" placeholder="default unit" 
-                                list="unit-defaults"
-                                onChange={this.handleChange}
-                                value={this.state.defaultunit}/>
-                            <datalist id="unit-defaults">
-                                {defaultUnits}
-                            </datalist>
-                        </div>
-                        <div className="row"></div>
-                        <div className="row">
-                            <label className="col-1" >Quantity:</label>
-                            <input className="col-2" type="number" 
-                                min="0" required 
-                                name="quantity" 
-                                onChange={this.handleChange}
-                                value={this.state.quantity}/>
-                            <label className="col-4" >Unit:</label>
-                            <input className="col-5" required
-                                name="unit" 
-                                list="units"
-                                onChange={this.handleChange}
-                                value={this.state.unit}/>
-                            <datalist id="units">
-                                {defaultUnits}
-                            </datalist>
-                        </div>
-                        <div className="button-pane">
-                            <button type="button" onClick={this.props.onClose}>
-                            <IconContext.Provider value={{size: "1.1em"}}>
-                                <FaRegTimesCircle/>
-                            </IconContext.Provider>
-                            </button>
-                            <button type="submit">
-                            <IconContext.Provider value={{size: "1.1em"}}>
+            <React.Fragment>
+                <Dialog open={this.props.show} onClose={this.handleClose}
+                    maxWidth="md" fullWidth scroll="body">
+                    <form className="add-ingredient" 
+                        onSubmit={this.handleSubmit}>
+                        <DialogTitle disableTypography className="title">
+                            <Typography variant="display2">
+                                Add Ingredient
+                            </Typography>
+                        </DialogTitle>
+                        <DialogContent>
+                            <Grid container className="row">
+                                <Grid item xs={12} md={5}>
+                                    <TextField required name="name"
+                                        placeholder="Name of Ingredient" 
+                                        label="Name"
+                                        variant="outlined"
+                                        fullWidth
+                                        margin="normal"
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                        onChange={this.handleChange}
+                                        value={this.state.name} 
+                                        inputProps={{
+                                            list: "names"
+                                        }}
+                                        error={this.state.errors.name}
+                                    />
+                                    <datalist id="names">
+                                        {names}
+                                    </datalist>
+                                </Grid>
+                                <Grid item xs={false} md={7}></Grid>
+                            </Grid>
+
+                            <Grid container className="row">
+                                <Grid item xs={12} md={5}>
+                                    <TextField required name="category"
+                                        placeholder="Category" 
+                                        label="Category"
+                                        variant="outlined"
+                                        fullWidth
+                                        margin="normal"
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                        onChange={this.handleChange}
+                                        value={this.state.category} 
+                                        inputProps={{
+                                            list: "categories"
+                                        }}
+                                        error={this.state.errors.category}
+                                    />
+                                    <datalist id="categories">
+                                        {categories}
+                                    </datalist>
+                                </Grid>
+
+                                <Grid item xs={false} md={2}></Grid>
+
+                                <Grid item xs={12} md={5}>
+                                    <TextField required name="subcategory"
+                                        label="Subcategory"
+                                        placeholder="SubCategory"
+                                        variant="outlined"
+                                        fullWidth
+                                        margin="normal"
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                        onChange={this.handleChange}
+                                        value={this.state.subcategory} 
+                                        inputProps={{
+                                            list: "subcategories"
+                                        }}
+                                        error={this.state.errors.subcategory}
+                                    />
+                                    <datalist id="subcategories">
+                                        {subcategories}
+                                    </datalist> 
+                                </Grid>
+                            </Grid>
+
+                            <Grid container className="row">
+                                <Grid item xs={12} md={5}>
+                                    <TextField required name="brand"
+                                        label="Brand"
+                                        placeholder="Brand"
+                                        variant="outlined"
+                                        fullWidth
+                                        margin="normal"
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                        onChange={this.handleChange}
+                                        value={this.state.brand} 
+                                        inputProps={{
+                                            list: "brands"
+                                        }}
+                                        error={this.state.errors.brand}
+                                    />
+                                    <datalist id="brands">
+                                        {brands}
+                                    </datalist>
+                                </Grid>
+                                
+                                <Grid item xs={false} md={2}>    
+                                </Grid>
+
+                                <Grid item xs={12} md={5}>
+                                    <TextField required name="coo"
+                                        placeholder="Country of Origin" 
+                                        label="Country"
+                                        variant="outlined"
+                                        fullWidth
+                                        margin="normal"
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                        onChange={this.handleChange}
+                                        value={this.state.coo} 
+                                        inputProps={{
+                                            list: "countries"
+                                        }}
+                                        error={this.state.errors.coo}
+                                    />
+                                    <datalist id="countries">
+                                        {countries}
+                                    </datalist>
+                                </Grid>
+                            </Grid>
+
+                            <Grid container className="row">
+                                <Grid item xs={false} md={7}>    
+                                </Grid>
+                                
+                                <Grid item xs={12} md={5}>
+                                    <TextField required name="defaultunit"
+                                        placeholder="Default Unit (singular)" 
+                                        label="Default Unit"
+                                        variant="outlined"
+                                        fullWidth
+                                        margin="normal"
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                        onChange={this.handleChange}
+                                        value={this.state.defaultunit} 
+                                        inputProps={{
+                                            list: "default-units"
+                                        }}
+                                        error={this.state.errors.defaultunit}
+                                    />
+                                    <datalist id="default-units">
+                                        {defaultUnits}
+                                    </datalist>
+                                </Grid>
+                            </Grid>
+
+                            <Grid container className="row">
+                                <Grid item xs={12} md={12}>
+                                </Grid>
+                            </Grid>
+
+                            <Grid container className="row">
+
+                                <Grid item xs={false} md={2}>  
+                                </Grid>
+
+                                <Grid item xs={12} md={3}>
+                                    <TextField required name="quantity"
+                                        label="Quantity"
+                                        variant="outlined"
+                                        fullWidth
+                                        placeholder="Quantity" 
+                                        onChange={this.handleChange}
+                                        value={this.state.quantity} 
+                                        margin="normal"
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                        error={this.state.errors.quantity}
+                                    />
+                                </Grid>
+                                
+                                <Grid item xs={false} md={2}>    
+                                </Grid>
+
+                                <Grid item xs={12} md={5}>
+                                    <TextField required name="unit"
+                                        label="Unit"
+                                        variant="outlined"
+                                        fullWidth
+                                        placeholder="Unit (singular)"
+                                        onChange={this.handleChange}
+                                        value={this.state.unit}
+                                        margin="normal"
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                        inputProps={{
+                                            list: "default-units"
+                                        }}
+                                        error={this.state.errors.unit}
+                                    />
+                                </Grid>
+                            </Grid>
+                        </DialogContent>
+                        <DialogActions className="button-pane">
+                            <Button type="submit" variant="contained" color="primary" size="large"
+                                onClick={this.handleErrorChecking}>
                                 <FaSave/>
-                            </IconContext.Provider>
-                            </button>
-                        </div>
+                            </Button>
+                            <Typography color="error" align="center" inline className="error-message">
+                                {this.state.errors.message}
+                            </Typography>
+                            <Button type="button" variant="contained" color="primary" size="large" 
+                                onClick={this.handleClose}>
+                                <FaRegTimesCircle/>
+                            </Button>
+                        </DialogActions>
                     </form>
-                </section>
-            </Modal>
+                </Dialog>
+            </React.Fragment>
         );
     }
 }

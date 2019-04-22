@@ -1,5 +1,8 @@
-.flex-view {
-    margin: 0.25rem;
+.screen-view {
+    margin: 0.5em;
+}
+
+.main-view {
     display: flex;
-    height: 100%;
+    margin-top: 0.5em;
 }

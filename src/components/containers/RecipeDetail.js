@@ -2,12 +2,18 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {OrderedList, OrderedListAddButton} from '../ui/lists';
-import {AddForm, EditableTextItem} from '../ui/forms';
+import {ListWithAddButton, ListWithAddForm} from '../ui/lists';
+import {EditableTextItem} from '../ui/forms';
 import ConnectedNewIngredientModal from './NewIngredientModal';
 import {FaPencilAlt, FaTrash, FaSave, FaRegTimesCircle} from 'react-icons/fa';
 import {updateRecipe, addProduct} from '../../store/actions';
-import '../../css/recipes.css';
+import Card from '@material-ui/core/Card';
+import Input from '@material-ui/core/Input';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import 'typeface-roboto';
+import '../../css/recipedetail.css';
 
 
 const NewIngredientModal = withRouter(ConnectedNewIngredientModal);
@@ -24,17 +30,9 @@ class InstructionsSection extends Component {
         }
 
         this.onChange = this.onChange.bind(this);
-        this.newInstruction = this.newInstruction.bind(this);
         this.handleSaveEditedInstruction = this.handleSaveEditedInstruction.bind(this);
         this.handleCancelEditingInstruction = this.handleCancelEditingInstruction.bind(this);
         this.handleToggleEditingInstruction = this.handleToggleEditingInstruction.bind(this);
-    }
-
-    newInstruction(event) {
-        event.preventDefault();
-        const instruction = this.state.newInstruction;
-        this.props.addInstruction(instruction);
-        this.setState({newInstruction: ""});
     }
 
     onChange(event) {
@@ -72,37 +70,38 @@ class InstructionsSection extends Component {
                     {
                         this.state.editingInstruction === step ?
                         <form className="detail-instruction" onSubmit={(e) => this.handleSaveEditedInstruction(e, step)}>
-                            <input value={this.state.editedInstructionText} onChange={this.onChange}
+                            <Input value={this.state.editedInstructionText} onChange={this.onChange}
+                                fullWidth={true}
                                 name="editedInstructionText" required placeholder="There must be an instruction here." />
-                            <button type="submit"
-                                ><FaSave/></button>
-                            <button type="button" 
-                                onClick={this.handleCancelEditingInstruction}><FaRegTimesCircle/></button>
+                            <Button type="submit" color="primary" size="medium" variant="contained"
+                                ><FaSave/></Button>
+                            <Button type="button" color="primary" size="medium" variant="contained"
+                                onClick={this.handleCancelEditingInstruction}><FaRegTimesCircle/></Button>
                         </form> :
                         <div className="detail-instruction">
-                            <div className="content">{item}</div>
-                            <button type="button" onClick={() => this.handleToggleEditingInstruction(step)}><FaPencilAlt/></button>
-                            <button type="button" onClick={() => this.props.removeInstruction(step)}><FaTrash/></button>
+                            <Typography component="div" className="content">{item}</Typography>
+                            <Button type="button" color="primary" size="medium" variant="contained"
+                                onClick={() => this.handleToggleEditingInstruction(step)}><FaPencilAlt/></Button>
+                            <Button type="button" color="primary" size="medium" variant="contained"
+                                onClick={() => this.props.removeInstruction(step)}><FaTrash/></Button>
                         </div>
                     }
                 </li>
             )
         });
 
+        const title = <Typography className="detail-subtitle" variant="title" gutterBottom={true}>Instructions</Typography>;
+
         return (
             <div className="detail-instructions">
-                <OrderedList 
-                    title="Instructions"
+                <ListWithAddForm orderedlist={true}
+                    classFormName="instruction-add"
+                    placeholder="New instruction..."
+                    title={title}
+                    addItem={this.props.addInstruction}
                 >
                     {instructions}
-                </OrderedList>
-                <AddForm addItem={this.newInstruction}
-                    className={this.props.classNameAddform}>
-                    <input name="newInstruction" required
-                        value={this.state.newInstruction} 
-                        onChange={this.onChange}
-                        placeholder="new instruction..." />
-                </AddForm>
+                </ListWithAddForm>
             </div>
         );
     }
@@ -121,26 +120,33 @@ class IngredientsSection extends Component {
         const ingredients = this.props.ingredients.map((item, step) => { 
             return (
                 <li key={item.id}>
-                    <div className="content">{item.name}</div>
-                    <div className="amount">{item.quantity}</div>
-                    <div className="unit">{item.unit}</div>
-                    <button type="button" 
+                        <Typography component="div">
+                        <Grid container direction="row">
+                            <Grid item xs={9}>{item.name}</Grid>
+                            <Grid item xs={1}>{item.quantity}</Grid>
+                            <Grid item xs={2}>{item.unit}</Grid>
+                        </Grid>
+                        </Typography>
+                    <Button type="button" color="primary" size="medium" variant="contained"
                         onClick={() => this.props.removeIngredient(item.id)}>
                       <FaTrash/>
-                    </button>
+                    </Button>
                 </li>
             );
         });
 
+        const title = <Typography variant="title" gutterBottom={true}>Ingredients</Typography>;
+
         return (
-            <OrderedListAddButton
+            <ListWithAddButton
+                orderedlist={false}
                 className="detail-ingredients"
-                title="Ingredients"
+                title={title}
                 onClick={this.props.addIngredient}
-                buttonTitle="Add Ingredient..."
+                buttonContent="Add Ingredient..."
             >
                 {ingredients}
-            </OrderedListAddButton>
+            </ListWithAddButton>
         );
     }
 }
@@ -201,13 +207,13 @@ class RecipeDetail extends Component {
         this.handleSubmitNewTitle = this.handleSubmitNewTitle.bind(this);
         this.handleRemoveInstruction = this.handleRemoveInstruction.bind(this);
         this.handleSaveInstruction = this.handleSaveInstruction.bind(this);
-        this.toggleModal = this.toggleModal.bind(this);
+        this.toggleNewIngredientModal = this.toggleNewIngredientModal.bind(this);
         this.handleSubmitIngredient = this.handleSubmitIngredient.bind(this);
         this.handleRemoveIngredient = this.handleRemoveIngredient.bind(this);
         this.getRecipe = this.getRecipe.bind(this);
     }
 
-    toggleModal() {
+    toggleNewIngredientModal() {
         this.setState({showNewIngredientModal: !this.state.showNewIngredientModal});
     }
 
@@ -305,10 +311,9 @@ class RecipeDetail extends Component {
         let instructions;
 
         if (recipe) {
-            title = recipe.title;
+            title = <Typography variant="display1">{recipe.title}</Typography>;
 
             instructions = recipe.instructions.slice();
-            console.log(recipe.ingredients);
             ingredients = recipe.ingredients.map((item) => {
                 const product = this.props.products.find(x => x.id === item.id);
                 if(product !== undefined) {
@@ -321,35 +326,39 @@ class RecipeDetail extends Component {
         }
 
         return (
-            <section className="recipe-detail">
-                {
-                    recipe ?
-                    <React.Fragment>
-                        <TitleSection title={title} updateTitle={this.handleSubmitNewTitle}  />
+            <React.Fragment>
+                <Card className="recipe-detail">
+                    {
+                        recipe ?
+                        <React.Fragment>
+                            <TitleSection title={title} updateTitle={this.handleSubmitNewTitle}  />
 
-                        <IngredientsSection 
-                            ingredients={ingredients}
-                            addIngredient={this.toggleModal}
-                            removeIngredient={this.handleRemoveIngredient}
-                        />
+                            <IngredientsSection 
+                                ingredients={ingredients}
+                                addIngredient={this.toggleNewIngredientModal}
+                                removeIngredient={this.handleRemoveIngredient}
+                            />
 
-                        <InstructionsSection 
-                            instructions={instructions}
-                            saveInstruction={this.handleSaveInstruction}
-                            removeInstruction={this.handleRemoveInstruction}
-                            addInstruction={this.handleSubmitNewInstruction}
-                        />
+                            <InstructionsSection 
+                                instructions={instructions}
+                                saveInstruction={this.handleSaveInstruction}
+                                removeInstruction={this.handleRemoveInstruction}
+                                addInstruction={this.handleSubmitNewInstruction}
+                            />
 
-                    </React.Fragment> :
-                    <div>
-                        <p>No recipe is selected.</p>
-                    </div>
-                }
+                        </React.Fragment> :
+                        <div>
+                            <p>No recipe is selected.</p>
+                        </div>
+                    }
+                </Card>
+
                 <NewIngredientModal show={this.state.showNewIngredientModal} 
-                    onClose={this.toggleModal}
-                    onAddIngredient={this.handleSubmitIngredient}
-                 />
-            </section>
+                onClose={this.toggleNewIngredientModal}
+                onAddIngredient={this.handleSubmitIngredient}
+                />
+
+            </React.Fragment>
         );
     }
 }
@@ -385,5 +394,4 @@ const mapDispatchToProps = dispatch => {
 }
 
 
-export {InstructionsSection, IngredientsSection, TitleSection};
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetail);

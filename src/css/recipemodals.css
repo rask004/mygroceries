@@ -1,0 +1,40 @@
+.add-ingredient {
+    background-color: #B0B0FF;
+    background-image: linear-gradient(to bottom right, #B0B0FF, #C8C8FF);
+    padding: 1em;
+}
+
+.add-ingredient button {
+    padding: 1em;
+    margin: 0.25em;
+}
+
+.add-ingredient label {
+    margin: 0 1em 0 0;
+    text-align: right;
+    padding-top: 0.25em;
+    color: rgba(48,48,48,1.0);
+    font-size: 1.1em;
+}
+
+.add-ingredient .title {
+    margin: 0 0 1.5em 0;
+    text-align: center;
+}
+
+.add-ingredient .button-pane {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2em;
+}
+
+.add-ingredient .row {
+    margin: 1em 0;
+    padding: 0 1em;
+}
+
+.add-ingredient .error-message {
+    background-color: rgba(255,255,255,0.25);
+    padding: 1em 1.5em;
+    border-radius: 0.25em;
+}

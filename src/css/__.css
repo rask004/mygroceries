@@ -1,0 +1,7 @@
+.navbar a {
+    padding: 1.05em 0.8em 0.55em;
+    background-color: #B0B0FF;
+    background-image: linear-gradient(to bottom right, #B0B0FF, #C8C8FF);
+    border-radius: 0.25em;
+}
+

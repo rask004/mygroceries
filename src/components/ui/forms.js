@@ -3,6 +3,7 @@ import {FaPlusSquare, FaPencilAlt, FaSave, FaRegTimesCircle} from 'react-icons/f
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
+import Grid from '@material-ui/core/Grid';
 import 'typeface-roboto';
 
 
@@ -72,30 +73,44 @@ class EditableTextItem extends Component {
             <React.Fragment>
                 {
                     !this.state.isEditing ?
-                    <div className={ this.props.className ? this.props.className : "" }>
+                    <Grid container component="div" 
+                        className={this.props.className}>
+                        <Grid item xs={12} md={3} component="span" className="detail-content-title">
                         {this.props.text}
+                        </Grid>
+                        <Grid item xs={12} md={1} component="span">
                         <Button 
                             color="primary" size="medium" variant="contained"
-                            type="button" 
-                            onClick={this.toggleEditing}>
+                            type="button" onClick={this.toggleEditing}
+                            className="action-toggle">
                             <FaPencilAlt/>
                         </Button>
-                    </div> :
-                    <form 
-                        className={ this.props.className ? this.props.className : "" }
-                        onSubmit={this.onSubmit}>
-                        <Input value={this.state.text} onChange={this.onChange} 
-                            required name="text"
-                            placeholder={this.props.placeholder ? this.props.placeholder : null} />
-                        <Button 
-                            color="primary" size="medium" variant="contained"
-                            type="submit"><FaSave/></Button>
-                        <Button 
-                            color="primary" size="medium" variant="contained"
-                            type="button" 
-                            onClick={this.toggleEditing}>
-                            <FaRegTimesCircle/>
-                        </Button>
+                        </Grid>
+                    </Grid> :
+                    <form onSubmit={this.onSubmit}>
+                        <Grid container component="div" 
+                            className={this.props.className}>
+                            <Grid item xs={12} md={3} component="span">
+                                <Input value={this.state.text} onChange={this.onChange} 
+                                    required name="text"
+                                    placeholder={this.props.placeholder} />
+                            </Grid>
+                            <Grid item xs={12} md={1} component="span">
+                                <Button 
+                                    color="primary" size="medium" variant="contained"
+                                    type="submit" className="action-save">
+                                    <FaSave/>
+                                </Button>
+                            </Grid>
+                            <Grid item xs={12} md={1} component="span">
+                                <Button 
+                                    color="primary" size="medium" variant="contained"
+                                    type="button" onClick={this.toggleEditing}
+                                    className="action-cancel">
+                                    <FaRegTimesCircle/>
+                                </Button>
+                            </Grid>
+                        </Grid>
                     </form>
                 }
             </React.Fragment>
@@ -106,10 +121,13 @@ class EditableTextItem extends Component {
 EditableTextItem.propTypes = {
     className: PropTypes.string,
     updateText: PropTypes.func.isRequired,
-    text: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.node
-    ]).isRequired
+    text: PropTypes.string.isRequired,
+    placeholder: PropTypes.string,
+}
+
+EditableTextItem.defaultProps = {
+    className: "",
+    placeholder: "",
 }
 
 

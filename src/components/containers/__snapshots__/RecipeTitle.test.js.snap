@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RecipeTitle Component render tests renders correctly 1`] = `
+<h1
+  className="MuiTypography-root-1 MuiTypography-display1-5 MuiTypography-gutterBottom-28"
+>
+  <div
+    className="MuiGrid-container-37 detail-title"
+  >
+    <span
+      className="MuiGrid-item-38 MuiGrid-grid-xs-12-77 MuiGrid-grid-md-3-96 detail-content-title"
+    >
+      title
+    </span>
+    <span
+      className="MuiGrid-item-38 MuiGrid-grid-xs-12-77 MuiGrid-grid-md-1-94"
+    >
+      <button
+        className="MuiButtonBase-root-160 MuiButton-root-134 MuiButton-contained-145 MuiButton-containedPrimary-146 MuiButton-raised-148 MuiButton-raisedPrimary-149 action-toggle"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onContextMenu={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex="0"
+        type="button"
+      >
+        <span
+          className="MuiButton-label-135"
+        >
+          <svg
+            fill="currentColor"
+            height="1em"
+            stroke="currentColor"
+            strokeWidth="0"
+            style={
+              Object {
+                "color": undefined,
+              }
+            }
+            viewBox="0 0 512 512"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"
+            />
+          </svg>
+        </span>
+        <span
+          className="MuiTouchRipple-root-163"
+        />
+      </button>
+    </span>
+  </div>
+</h1>
+`;

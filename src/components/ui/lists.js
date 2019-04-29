@@ -34,6 +34,8 @@ OrderedList.propTypes = {
 }
 
 
+
+
 class OrderedListAddButton extends Component {
     render() {
         return (
@@ -85,6 +87,7 @@ class ListWithAddButton extends Component {
                 {title}
                 {listRendering}
                 <Button type="button" color="primary" size="medium" variant="contained" 
+                    className="action-add"
                     onClick={this.props.onClick}>
                     {this.props.buttonContent}
                 </Button>
@@ -110,7 +113,8 @@ ListWithAddButton.propTypes = {
 
 ListWithAddButton.defaultProps = {
     className: null,
-    title: null
+    title: null,
+    orderedList: true
 }
 
 
@@ -152,22 +156,20 @@ class ListWithAddForm extends Component {
 
         return (
             <React.Fragment>
-                {
-                    this.props.title ?
-                    this.props.title :
-                    ""
-                }
+                {this.props.title}
 
                 {listRendering}
 
                 <form onSubmit={this.onSubmit} className={this.props.classFormName}>
-                    <Button color="primary" size="medium" variant="contained" type="submit">
+                    <Button color="primary" size="medium" variant="contained" type="submit"
+                        className="action-add">
                         <FaPlusSquare />
                     </Button>
                     <Input name="newItemName" required
                         placeholder={this.props.placeholder}
                         value={this.state.newItemName} 
-                        onChange={this.onChange}/>
+                        onChange={this.onChange}
+                        className="input-new-instruction" />
                 </form>
             </React.Fragment>
         );
@@ -188,6 +190,7 @@ ListWithAddForm.propTypes = {
 ListWithAddForm.defaultProps = {
     classFormName: null,
     placeholder: "Add Item...",
+    title: "",
 }
 
 

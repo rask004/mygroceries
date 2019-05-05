@@ -15,40 +15,25 @@ import 'typeface-roboto';
 import '../../css/recipemodals.css';
 
 
+const 
+    quantity = "quantity requires a decimal or whole number greater than 0.",
+    name = "ingredient name must have a value.",
+    brand = "brand must have a value.",
+    category = "category must have a value.",
+    subcategory = "subcategory must have a value.",
+    coo = "country of origin must have a value.",
+    defaultunit = "default unit must have a value.",
+    unit = "unit must have a value.";
 const errorMessages = {
-    quantity: "quantity requires a decimal or whole number greater than 0.",
-    name: "ingredient name must have a value.",
-    brand: "brand must have a value.",
-    category: "category must have a value.",
-    subcategory: "subcategory must have a value.",
-    coo: "country of origin must have a value.",
-    defaultunit: "default unit must have a value.",
-    unit: "unit must have a value.",
+    quantity,
+    name,
+    brand,
+    category,
+    subcategory,
+    coo,
+    defaultunit,
+    unit,
 };
-
-
-const initialModalState = {
-    name: "",
-    category: "",
-    subcategory: "",
-    coo: "",
-    brand: "",
-    defaultunit: "",
-    quantity: 0,
-    unit: "",
-    errors: {
-        name: true,
-        category: true,
-        subcategory: true,
-        coo: true,
-        brand: true,
-        defaultunit: true,
-        quantity: true,
-        unit: true,
-        message: errorMessages.quantity,
-    }
-};
-
 
 const makeDatalist = (products, key) => {
     return uniq(products.map(x => x[key])).map( (x, i) => (
@@ -57,10 +42,31 @@ const makeDatalist = (products, key) => {
 };
 
 
-class NewIngredientModal extends Component {
+class NewIngredientPanel extends Component {
     constructor(props) {
         super(props);
-        this.state = initialModalState;
+        
+        this.state = {
+            name: "",
+            category: "",
+            subcategory: "",
+            coo: "",
+            brand: "",
+            defaultunit: "",
+            quantity: 0,
+            unit: "",
+            errors: {
+                name: true,
+                category: true,
+                subcategory: true,
+                coo: true,
+                brand: true,
+                defaultunit: true,
+                quantity: true,
+                unit: true,
+                message: errorMessages.quantity,
+            }
+        };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -73,7 +79,7 @@ class NewIngredientModal extends Component {
         const name = target.name;
         const value = target.value;
 
-        const newState = {[name]: value, unit: this.state.unit, errors: this.state.errors};
+        const newState = {[name]: value, errors: this.state.errors};
         if(name === "defaultunit") {
             newState.unit = value;
             newState.errors.unit = false;
@@ -92,6 +98,30 @@ class NewIngredientModal extends Component {
             errors[name] = true;
         } else if (name !== undefined) {
             errors[name] = false;
+        }
+
+        for(let name in errors) {
+            if( name === "message") {
+                continue;
+            }
+
+            const value = this.state[name];
+            if (name === "quantity") {
+                if (isNaN(value) || Number(value) <= 0) {
+
+                }
+                else {
+
+                }
+            }
+            else {
+                if (value === "") {
+                    
+                }
+                else {
+
+                }
+            }
         }
 
         errors.message = "";
@@ -121,17 +151,57 @@ class NewIngredientModal extends Component {
         }
 
         const ingredient = omit(assign({}, this.state), ["quantity", "unit", "errors"]);
-
         const quantity = this.state.quantity;
         const unit = this.state.unit;
+
         const ingredientAdded = this.props.onAddIngredient(ingredient, quantity, unit);
         if (ingredientAdded) {
-            this.setState(initialModalState);
+            this.setState({
+                name: "",
+                category: "",
+                subcategory: "",
+                coo: "",
+                brand: "",
+                defaultunit: "",
+                quantity: 0,
+                unit: "",
+                errors: {
+                    name: true,
+                    category: true,
+                    subcategory: true,
+                    coo: true,
+                    brand: true,
+                    defaultunit: true,
+                    quantity: true,
+                    unit: true,
+                    message: errorMessages.quantity,
+                }
+            });
         }
     }
 
     handleClose() {
-        this.setState(initialModalState);
+        this.setState({
+            name: "",
+            category: "",
+            subcategory: "",
+            coo: "",
+            brand: "",
+            defaultunit: "",
+            quantity: 0,
+            unit: "",
+            errors: {
+                name: true,
+                category: true,
+                subcategory: true,
+                coo: true,
+                brand: true,
+                defaultunit: true,
+                quantity: true,
+                unit: true,
+                message: errorMessages.quantity,
+            }
+        });
         this.props.onClose();
     }
 
@@ -147,8 +217,7 @@ class NewIngredientModal extends Component {
         const brands = makeDatalist(products, "brand");
 
         return (
-            <Dialog open={this.props.show} onClose={this.handleClose}
-                maxWidth="md" fullWidth scroll="body">
+            <div>
                 <form className="add-ingredient" 
                     onSubmit={this.handleSubmit}>
 
@@ -357,28 +426,49 @@ class NewIngredientModal extends Component {
                             </Grid>
                         </Grid>
                     </DialogContent>
-                    <DialogActions className="button-pane">
-                        <Button type="submit" variant="contained" color="primary" size="large"
-                            onClick={this.handleErrorChecking}>
+                    <div className="button-pane">
+                        <Button type="submit" variant="contained" color="primary" size="large">
                             <FaSave/>
                         </Button>
                         <Typography color="error" align="center" inline className="error-message">
                             {this.state.errors.message}
                         </Typography>
                         <Button type="button" variant="contained" color="primary" size="large" 
+                            className="action-cancel"
                             onClick={this.handleClose}>
                             <FaRegTimesCircle/>
                         </Button>
-                    </DialogActions>
+                    </div>
                 </form>
-            </Dialog>
+            </div>
         );
     }
 }
 
-NewIngredientModal.propTypes = {
+NewIngredientPanel.propTypes = {
     products: PropTypes.array.isRequired,
+    onAddIngredient: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired
+}
+
+
+const NewIngredientDialog = (props) => {
+    return (
+        <Dialog open={props.show}
+                maxWidth="md" fullWidth scroll="body"
+                disableEscapeKeyDown disableBackdropClick>
+                <NewIngredientPanel 
+                    products={props.products}
+                    onAddIngredient={props.onAddIngredient}
+                    onClose={props.onClose}
+                />
+        </Dialog>
+    );
+}
+
+NewIngredientDialog.propTypes = {
     show: PropTypes.bool.isRequired,
+    products: PropTypes.array.isRequired,
     onClose: PropTypes.func.isRequired,
     onAddIngredient: PropTypes.func.isRequired
 }
@@ -390,6 +480,6 @@ const mapStateToProps = state => {
     }
 }
 
-export {NewIngredientModal};
+export {NewIngredientPanel, NewIngredientDialog};
 
-export default connect(mapStateToProps)(NewIngredientModal);
+export default connect(mapStateToProps)(NewIngredientDialog);

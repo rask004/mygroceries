@@ -44,3 +44,16 @@ export const removeProduct = (id) => (
     }
 );
 
+export const addPlannedMeal = (datetime, recipeId) => (
+    {
+        type: C.ADD_MEAL,
+        payload: {datetime, recipeId},
+    }
+);
+
+export const removePlannedMeal = (datetime) => (
+    {
+        type: C.REMOVE_MEAL,
+        payload: datetime,
+    }
+);

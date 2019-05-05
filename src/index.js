@@ -12,7 +12,6 @@ import sampleData from './data/initialState.json';
 
 // get the store from the store factory, with initialState
 const store = storeFactory( sampleData? sampleData: {} );
-store.getState();
 
 // subscribe to store as needed
 

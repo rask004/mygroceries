@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {FaTrash} from 'react-icons/fa';
-import {ListWithAddForm} from '../ui/lists';
+import RecipeList from './RecipeList';
 import PropTypes from 'prop-types';
 import { addRecipe, removeRecipe } from '../../store/actions';
-import Button from '@material-ui/core/Button';
-import ListItem from '@material-ui/core/ListItem';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import 'typeface-roboto';
@@ -37,14 +34,8 @@ class RecipeMaster extends Component {
             currentRecipeId: currentId,
         }
 
-        this.handleSubmitNewRecipe = this.handleSubmitNewRecipe.bind(this);
         this.handleSelectRecipe = this.handleSelectRecipe.bind(this);
         this.handleRemoveRecipe = this.handleRemoveRecipe.bind(this);
-    }
-
-    handleSubmitNewRecipe(title) {
-        const id = Math.max(this.props.recipes.map((item) => (item.id))) + 1;
-        this.props.onAddRecipe(id, title);
     }
 
     handleSelectRecipe(id) {
@@ -56,37 +47,18 @@ class RecipeMaster extends Component {
     }
 
     render() {
-        const recipes = this.props.recipes.map( (item) => {
-            const id = Number(item.id);
-            return (
-                <ListItem key={id} selected={id === this.state.currentRecipeId}>
-                    <Button color="default" size="medium" variant="text"
-                        onClick={() => this.handleSelectRecipe(id)}
-                        href={"/recipe/" + id + "/"}
-                        disableRipple={false}
-                        disableFocusRipple={false}
-                    >
-                        {item.title}
-                    </Button>
-                    <Button color="primary" size="medium" variant="contained"
-                        onClick={() => this.handleRemoveRecipe(id)}
-                        disableRipple={false}
-                        disableFocusRipple={false}
-                    >
-                        <FaTrash/>
-                    </Button>
-                </ListItem>
-            );
-        });
         return (
             <Card className="recipe-master">
 
                 <Typography variant="display1" gutterBottom={true}>Recipes</Typography>
 
-                <ListWithAddForm orderedlist={false} placeholder="Add Recipe..."
-                    classFormName="recipe-add" addItem={this.handleSubmitNewRecipe}>
-                    {recipes}
-                </ListWithAddForm>
+                <RecipeList 
+                    currentRecipeId={this.state.currentRecipeId}
+                    recipes={this.props.recipes}
+                    onAddRecipe={this.props.onAddRecipe}
+                    onSelectRecipe={this.handleSelectRecipe}
+                    onRemoveRecipe={this.handleRemoveRecipe}
+                />
 
             </Card>
         );
@@ -106,7 +78,6 @@ const mapStateToProps = state => {
     }
 }
 
-
 const mapDispatchToProps = dispatch => {
 	return {
 		onAddRecipe(id, title) {
@@ -122,5 +93,6 @@ const mapDispatchToProps = dispatch => {
 	}
 }
 
+export {RecipeMaster};
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeMaster);

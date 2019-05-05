@@ -1,34 +1,10 @@
 import React, { Component } from 'react';
-import {FaPlusSquare, FaPencilAlt, FaSave, FaRegTimesCircle} from 'react-icons/fa';
+import {FaPencilAlt, FaSave, FaRegTimesCircle} from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import Grid from '@material-ui/core/Grid';
 import 'typeface-roboto';
-
-
-class AddForm extends Component {
-    render() {
-        return (
-            <form onSubmit={this.props.addItem} 
-                    className={ this.props.className ? this.props.className : "" }>
-                <Button color="primary" size="medium" variant="contained" type="submit">
-                    <FaPlusSquare/>
-                </Button>
-                {this.props.children}
-            </form>
-        );
-    }
-}
-
-AddForm.propTypes = {
-    className: PropTypes.string,
-    addItem: PropTypes.func.isRequired,
-    children: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node
-    ]).isRequired
-}
 
 
 class EditableTextItem extends Component {
@@ -131,5 +107,5 @@ EditableTextItem.defaultProps = {
 }
 
 
-export {AddForm, EditableTextItem};
+export {EditableTextItem};
 

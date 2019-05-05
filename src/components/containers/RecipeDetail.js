@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import ConnectedNewIngredientModal from './NewIngredientModal';
+import NewIngredientModal from './NewIngredientModal';
 import InstructionsList from './RecipeInstructions';
 import IngredientsList from './RecipeIngredients';
 import RecipeTitle from './RecipeTitle';
@@ -11,20 +11,16 @@ import Card from '@material-ui/core/Card';
 import '../../css/recipedetail.css';
 
 
-const NewIngredientModal = withRouter(ConnectedNewIngredientModal);
-
-
 class RecipeDetail extends Component {
 
     getRecipe() {
-        const id = Number(this.props.match.params.id);
-        const recipe = this.props.recipes.find(item => item.id === id);
-        return recipe;
+        const id = Number(this.props.id);
+        return this.props.recipes.find(item => item.id === id);
     }
 
     constructor(props) {
         super(props);
-        const id = Number(props.match.params.id);
+        const id = Number(props.id);
         const recipe = props.recipes.find(item => item.id === id);
         let value;
         value = recipe ?
@@ -184,6 +180,7 @@ class RecipeDetail extends Component {
                 <NewIngredientModal show={this.state.showNewIngredientModal} 
                 onClose={this.toggleNewIngredientModal}
                 onAddIngredient={this.handleSubmitIngredient}
+                products={this.props.products}
                 />
 
             </React.Fragment>
@@ -195,7 +192,8 @@ RecipeDetail.propTypes = {
     onUpdateRecipe: PropTypes.func.isRequired,
     onAddProduct: PropTypes.func.isRequired,
     recipes: PropTypes.array.isRequired,
-    products: PropTypes.array.isRequired 
+    products: PropTypes.array.isRequired,
+    id: PropTypes.string.isRequired
 }
 
 
@@ -221,5 +219,16 @@ const mapDispatchToProps = dispatch => {
 	}
 }
 
+export {RecipeDetail};
 
-export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetail);
+
+const ConnectedRecipeDetail = connect(mapStateToProps, mapDispatchToProps)(RecipeDetail);
+const RoutedRecipeDetail = (props) => {
+    return (
+        <ConnectedRecipeDetail
+            id={props.match.params.id}
+        />
+    )
+}
+
+export default withRouter(RoutedRecipeDetail);

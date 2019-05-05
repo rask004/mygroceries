@@ -4,7 +4,6 @@ import {create} from 'react-test-renderer';
 import {NewIngredientPanel} from './NewIngredientModal';
 
 import sampleData from '../../data/initialState.json';
-import color from '@material-ui/core/colors/brown';
 
 
 const products = sampleData.products;

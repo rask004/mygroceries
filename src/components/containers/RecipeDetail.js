@@ -221,5 +221,6 @@ const mapDispatchToProps = dispatch => {
 	}
 }
 
+export {RecipeDetail};
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetail);

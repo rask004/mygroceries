@@ -24,6 +24,9 @@ class RecipeDetail extends Component {
 
     constructor(props) {
         super(props);
+        // FIXME id should be prop, with default value of undefined.
+        // if undefined, use props.match.params.id if available.
+        // if no props.match, use -1 (no recipe selected);
         const id = Number(props.match.params.id);
         const recipe = props.recipes.find(item => item.id === id);
         let value;

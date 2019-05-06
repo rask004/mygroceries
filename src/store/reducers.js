@@ -2,11 +2,6 @@ import C from './constants';
 import { combineReducers } from 'redux';
 
 
-export const addRecipe = (state={}, action) => (action.type === C.ADD_RECIPE) ?
-    action.payload :
-    state;
-
-
 export const recipes = (state=[], action) => {
     switch(action.type) {
         case C.ADD_RECIPE:
@@ -15,7 +10,7 @@ export const recipes = (state=[], action) => {
             state :
             [
                 ...state, 
-                addRecipe(null, action),
+                action.payload,
             ];
 
         case C.REMOVE_RECIPE:
@@ -54,8 +49,26 @@ export const products = (state=[], action) => {
     };
 }
 
+export const mealplans = (state=[], action) => {
+    switch(action.type) {
+        case C.ADD_MEAL:
+            const dateTimeUsedAlready = state.some(item => item.datetime.isSame(action.payload.datetime));
+            return dateTimeUsedAlready ?
+            state :
+            [
+                ...state,
+                action.payload,
+            ]
+        case C.REMOVE_MEAL:
+            return state.filter(item => !item.datetime.isSame(action.payload));
+        default:
+            return state;
+    };
+}
+
 
 export default combineReducers({
     products,
     recipes,
+    mealplans,
 });

@@ -1,0 +1,311 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InstructionsList Component render tests renders correctly 1`] = `
+<div
+  className="MuiPaper-root-2 MuiPaper-elevation1-5 MuiPaper-rounded-3 MuiCard-root-1 recipe-master"
+>
+  <h1
+    className="MuiTypography-root-29 MuiTypography-display1-33 MuiTypography-gutterBottom-56"
+  >
+    Recipes
+  </h1>
+  
+  <ul
+    className="MuiList-root-65 MuiList-padding-66"
+  >
+    <li
+      className="MuiListItem-root-69 MuiListItem-default-72 MuiListItem-gutters-77"
+      disabled={false}
+    >
+      <a
+        className="MuiButtonBase-root-107 MuiButton-root-81 MuiButton-text-83 MuiButton-flat-86 action-select"
+        href="/recipe/1/"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onContextMenu={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        role="button"
+        tabIndex="0"
+      >
+        <span
+          className="MuiButton-label-82"
+        >
+          test recipe
+        </span>
+        <span
+          className="MuiTouchRipple-root-140"
+        />
+      </a>
+      <button
+        className="MuiButtonBase-root-107 MuiButton-root-81 MuiButton-contained-92 MuiButton-containedPrimary-93 MuiButton-raised-95 MuiButton-raisedPrimary-96 action-remove"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onContextMenu={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex="0"
+        type="button"
+      >
+        <span
+          className="MuiButton-label-82"
+        >
+          <svg
+            fill="currentColor"
+            height="1em"
+            stroke="currentColor"
+            strokeWidth="0"
+            style={
+              Object {
+                "color": undefined,
+              }
+            }
+            viewBox="0 0 448 512"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
+            />
+          </svg>
+        </span>
+        <span
+          className="MuiTouchRipple-root-140"
+        />
+      </button>
+    </li>
+    <li
+      className="MuiListItem-root-69 MuiListItem-default-72 MuiListItem-gutters-77"
+      disabled={false}
+    >
+      <a
+        className="MuiButtonBase-root-107 MuiButton-root-81 MuiButton-text-83 MuiButton-flat-86 action-select"
+        href="/recipe/2/"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onContextMenu={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        role="button"
+        tabIndex="0"
+      >
+        <span
+          className="MuiButton-label-82"
+        >
+          another test recipe
+        </span>
+        <span
+          className="MuiTouchRipple-root-140"
+        />
+      </a>
+      <button
+        className="MuiButtonBase-root-107 MuiButton-root-81 MuiButton-contained-92 MuiButton-containedPrimary-93 MuiButton-raised-95 MuiButton-raisedPrimary-96 action-remove"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onContextMenu={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex="0"
+        type="button"
+      >
+        <span
+          className="MuiButton-label-82"
+        >
+          <svg
+            fill="currentColor"
+            height="1em"
+            stroke="currentColor"
+            strokeWidth="0"
+            style={
+              Object {
+                "color": undefined,
+              }
+            }
+            viewBox="0 0 448 512"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
+            />
+          </svg>
+        </span>
+        <span
+          className="MuiTouchRipple-root-140"
+        />
+      </button>
+    </li>
+    <li
+      className="MuiListItem-root-69 MuiListItem-default-72 MuiListItem-gutters-77"
+      disabled={false}
+    >
+      <a
+        className="MuiButtonBase-root-107 MuiButton-root-81 MuiButton-text-83 MuiButton-flat-86 action-select"
+        href="/recipe/3/"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onContextMenu={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        role="button"
+        tabIndex="0"
+      >
+        <span
+          className="MuiButton-label-82"
+        >
+          the third test recipe
+        </span>
+        <span
+          className="MuiTouchRipple-root-140"
+        />
+      </a>
+      <button
+        className="MuiButtonBase-root-107 MuiButton-root-81 MuiButton-contained-92 MuiButton-containedPrimary-93 MuiButton-raised-95 MuiButton-raisedPrimary-96 action-remove"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onContextMenu={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex="0"
+        type="button"
+      >
+        <span
+          className="MuiButton-label-82"
+        >
+          <svg
+            fill="currentColor"
+            height="1em"
+            stroke="currentColor"
+            strokeWidth="0"
+            style={
+              Object {
+                "color": undefined,
+              }
+            }
+            viewBox="0 0 448 512"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
+            />
+          </svg>
+        </span>
+        <span
+          className="MuiTouchRipple-root-140"
+        />
+      </button>
+    </li>
+  </ul>
+  <form
+    className="recipe-add"
+    onSubmit={[Function]}
+  >
+    <button
+      className="MuiButtonBase-root-107 MuiButton-root-81 MuiButton-contained-92 MuiButton-containedPrimary-93 MuiButton-raised-95 MuiButton-raisedPrimary-96 action-add"
+      disabled={false}
+      onBlur={[Function]}
+      onContextMenu={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex="0"
+      type="submit"
+    >
+      <span
+        className="MuiButton-label-82"
+      >
+        <svg
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          strokeWidth="0"
+          style={
+            Object {
+              "color": undefined,
+            }
+          }
+          viewBox="0 0 448 512"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-32 252c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92H92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"
+          />
+        </svg>
+      </span>
+      <span
+        className="MuiTouchRipple-root-140"
+      />
+    </button>
+    <div
+      className="MuiInputBase-root-123 MuiInput-root-110 MuiInput-underline-114 input-new-instruction"
+      onClick={[Function]}
+      required={true}
+    >
+      <input
+        className="MuiInputBase-input-133 MuiInput-input-118"
+        name="newItemName"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Add Recipe..."
+        required={true}
+        type="text"
+        value=""
+      />
+    </div>
+  </form>
+</div>
+`;

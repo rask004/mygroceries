@@ -4,6 +4,8 @@ const C = {
     ADD_PRODUCT: "ADD_PRODUCT",
     REMOVE_PRODUCT: "REMOVE_PRODUCT",
     UPDATE_RECIPE: "UPDATE_RECIPE",
+    ADD_MEAL: "ADD_MEAL",
+    REMOVE_MEAL: "REMOVE_MEAL",
 }
 
 export default C;

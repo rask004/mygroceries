@@ -25,11 +25,6 @@ const staticComponent = create(<InstructionsList
 
 
 describe('InstructionsList Component render tests', () => {
-    // research fixtures for set up and teardown
-
-    // beforeEach(() => {
-    //     
-    // })
 
     test('renders correctly', () => {
         expect(staticComponent.toJSON()).toMatchSnapshot();

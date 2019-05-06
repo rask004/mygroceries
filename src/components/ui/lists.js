@@ -6,69 +6,6 @@ import List from '@material-ui/core/List';
 import Input from '@material-ui/core/Input';
 
 
-class OrderedList extends Component {
-    render() {
-        return (
-            <div className={ this.props.className ? this.props.className : "" }>
-                {
-                    this.props.title ?
-                    <p>{this.props.title}</p> :
-                    ""
-                }
-                <List component='ol'>
-                    {this.props.children}
-                </List>
-            </div>
-        );
-    }
-}
-
-
-OrderedList.propTypes = {
-    className: PropTypes.string,
-    title: PropTypes.string,
-    children: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node
-    ]).isRequired
-}
-
-
-
-
-class OrderedListAddButton extends Component {
-    render() {
-        return (
-            <div className={ this.props.className ? this.props.className : "" }>
-                {
-                    this.props.title ?
-                    <p>{this.props.title}</p> :
-                    ""
-                }
-                <List component='ol'>
-                    {this.props.children}
-                </List>
-                <Button type="button" color="primary" size="medium" variant="contained" 
-                    onClick={this.props.onClick}>
-                    {this.props.buttonTitle}
-                </Button>
-            </div>
-        );
-    }
-}
-
-OrderedListAddButton.propTypes = {
-    className: PropTypes.string,
-    title: PropTypes.string,
-    children: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node
-    ]).isRequired,
-    onClick: PropTypes.func.isRequired,
-    buttonTitle: PropTypes.string.isRequired,
-}
-
-
 class ListWithAddButton extends Component {
     render() {
         const listRendering =  this.props.orderedlist ?
@@ -194,4 +131,4 @@ ListWithAddForm.defaultProps = {
 }
 
 
-export {OrderedList, OrderedListAddButton, ListWithAddForm, ListWithAddButton};
+export {ListWithAddForm, ListWithAddButton};

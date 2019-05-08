@@ -16,12 +16,20 @@ class MealPlanner extends Component {
     }
 
     render() {
-        const mealplans = this.props.mealplans.map( (item, step) => {
+        const mealplans = this.props.mealplans.slice().sort(
+            (a,b) => moment(a.datetime).isBefore(b.datetime)
+        ).map( (item, step) => {
             return (
-                <li key={step}>
-                    <span>{ moment(item.datetime).format("LL")} </span>
-                    <span>{ moment(item.datetime).format("LT")} </span>
-                    <span>{item.recipeId} </span>
+                <li className="mealplan-item" key={step}>
+                    <div className="mealplan-content">
+                        <span className="content-date">{moment(item.datetime).format("LL")}</span>
+                    </div>
+                    <div className="mealplan-content">
+                        <span className="content-time">{moment(item.datetime).format("LT")}</span>
+                    </div>
+                    <div className="mealplan-content">
+                        <span className="content-recipe">{item.recipeId}</span>
+                    </div>
                     <button type="button">Remove</button>
                 </li>
             );

@@ -201,18 +201,9 @@ describe('Test Reducers, Recipes', () => {
 
 describe('Test Reducers: Meal Plans', () => {
     test('add meal plan' , () => {
-        const state = [
-            {
-                datetime: moment("2017-06-12 12:30+12:00"),
-                recipeId: 2,
-            }, 
-            {
-                datetime: moment("2017-06-12 13:30+12:00"),
-                recipeId: 5,
-            }
-        ];
+        const state = sampledata.mealplans.slice();
         const planned_meal = {
-            datetime: moment("2020-06-12 19:30:30+12:00"), 
+            datetime: "2020-06-12T19:30:30+12:00",
             recipeId: 1
         }
         const add_action = {
@@ -226,10 +217,7 @@ describe('Test Reducers: Meal Plans', () => {
 
         expect(reducers.mealplans(state, add_action)).toEqual(expectedState);
 
-        const existing_meal = {
-            datetime: moment("2017-06-12 13:30+12:00"), 
-            recipeId: 3
-        };
+        const existing_meal = state[0];
         const poor_add_action = {
             type: actiontypes.ADD_MEAL,
             payload: existing_meal,

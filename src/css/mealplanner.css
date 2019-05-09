@@ -1,5 +1,38 @@
+.mealplan {
+    border-radius: 0.25em;
+    background-color: #B0B0FF;
+    background-image: linear-gradient(to bottom right, #B0B0FF, #C8C8FF);
+    padding: 1em 1em 1.5em 1.5em;
+    flex-grow: 1;
+}
+
+.mealplan h1 {
+    margin: 0.5em;
+    padding: 0.5em;
+}
+
+.mealplan h2 {
+    margin: 1.5em 0 1em;
+}
+
+.mealplan ul {
+    list-style-type: none;
+    margin: 0.5em 1em 0.5em 2em;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.mealplan li {
+    padding: 0.5em 0 0.25em;
+}
+
 .mealplan-item {
     margin: 0.5em 0;
+}
+
+.add-form {
+    margin: 2.5em 1em 0.5em 2em;
 }
 
 .mealplan-content {

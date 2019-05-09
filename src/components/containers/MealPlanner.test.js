@@ -5,14 +5,15 @@ import moment from 'moment';
 import {MealPlanner} from './MealPlanner';
 
 import sampleData from '../../data/initialState.json';
+import dataConstants from '../../data/constants';
 
 
-const mealplans = sampleData.mealplan;
+const mealplans = sampleData.mealplans;
 const recipes = sampleData.recipes;
 
 const mealplanner = <MealPlanner
-        mealplans
-        recipes
+        mealplans={mealplans}
+        recipes={recipes}
         onAddMealplan={jest.fn()}
         onRemoveMealplan={jest.fn()}
     />  
@@ -32,18 +33,20 @@ describe('MealPlanner Component rendering tests', () => {
         );
         listitems.forEach( (item, step) => {
             const expectedMealplan = orderedMealplans[step];
-            const dateItem = item.findByProps({className:'content-date'});
-            const timeItem = item.findByProps({className:'content-time'});            
-            const recipeItem = item.findByProps({className:'content-recipe'});
+            // immediate childs are within Typography components (material ui).
+            const dateItem = item.findByProps({className:'content-date'}).props.children.props.children;
+            const timeItem = item.findByProps({className:'content-time'}).props.children.props.children;
+            const recipeItem = item.findByProps({className:'content-recipe'}).props.children.props.children;
 
-            const recipeId = (x => x.title === recipeItem.props.children).id;
+            const recipe = recipes.find(x => x.title === recipeItem);
+            const recipeId = recipe.id;
 
             const actualMealPlan = {
-                datetime: moment(dateItem + " " + timeItem),
+                datetime: dateItem + "T" + timeItem + "Z",
                 recipeId: recipeId
             };
 
-            expect(expectedMealplan).toEqual(actualMealPlan);
+            expect(actualMealPlan).toEqual(expectedMealplan);
         });
     });
 });
@@ -57,12 +60,10 @@ describe('MealPlanner Component behaviour tests', () => {
     test('click add mealplan calls onAddMealplan', () => {
         const component = create(mealplanner).root;
 
-        const expectedDatetime = moment("2019-02-27 07:00:00");
+        const expectedDatetime = moment("2019-02-27T07:00Z");
         const expectedRecipeId = recipes[1].id;
 
-        const addButton = component.findByProps({className: "add-button"});
-        addButton.props.onClick();
-        const mealPlanForm = component.findByType("form");
+        const mealPlanForm = component.findByProps({className:"add-form"});
         const dateField = mealPlanForm.findByProps({className:'picker-date'});
         const timeField = mealPlanForm.findByProps({className:'picker-time'});
         const recipeField = mealPlanForm.findByProps({className:'select-recipe'});
@@ -80,8 +81,8 @@ describe('MealPlanner Component behaviour tests', () => {
         });
         recipeField.props.onChange({
             target: {
-                name:  "title",
-                value: recipes[1].title
+                name:  "recipeId",
+                value: recipes[1].id
             }
         });
         mealPlanForm.props.onSubmit({ preventDefault: () => {}});
@@ -96,14 +97,15 @@ describe('MealPlanner Component behaviour tests', () => {
 
     test('click remove mealplan calls onRemoveMealplan', () => {
         const component = create(mealplanner).root;
-        const targetDateTime = mealplans[0].datetime;
+        const orderedMealplans = mealplans.slice().sort(
+            (a,b) => moment(a.datetime).isBefore(b.datetime)
+        );
+        const targetDateTime = orderedMealplans[0].datetime;
 
         const listItem = component.findAllByType('li')[0];
-        const removeButton = listItem.findByProps('action-remove');
+        const removeButton = listItem.findByProps({className:'action-remove'});
         removeButton.props.onClick();
 
         expect(component.props.onRemoveMealplan).toHaveBeenCalledWith(targetDateTime);
-
-        expect(false).toBeTruthy();
     });
 });

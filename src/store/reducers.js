@@ -52,7 +52,7 @@ export const products = (state=[], action) => {
 export const mealplans = (state=[], action) => {
     switch(action.type) {
         case C.ADD_MEAL:
-            const dateTimeUsedAlready = state.some(item => item.datetime.isSame(action.payload.datetime));
+            const dateTimeUsedAlready = state.some(item => item.datetime === action.payload.datetime);
             return dateTimeUsedAlready ?
             state :
             [

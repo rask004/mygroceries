@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import moment from 'moment';
+import * as DateFns from 'date-fns';
 import { connect } from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -20,11 +20,11 @@ class MealPlanner extends Component {
     constructor(props) {
         super(props);
 
-        const now = moment.utc();
+        const now = new Date();
 
         this.state = {
-            date: now.format("Y-MM-DD"),
-            time: now.format("HH:mm"),
+            date: DateFns.format(now, "YYYY-MM-DD"),
+            time: DateFns.format(now, "HH:mm"),
             recipeId: this.props.recipes[0].id,
         }
 
@@ -35,9 +35,9 @@ class MealPlanner extends Component {
     handleSubmit(event) {
         event.preventDefault();
         
-        const date = moment(this.state.date, "Y-MM-DD").format();
-        const time = moment(this.state.time, "HH:mm");
-        const datetime = moment.utc(date + "T" + time + "Z");
+        const date = this.state.date;
+        const time = this.state.time;
+        const datetime = date + "T" + time;
         this.props.onAddMealplan(datetime, this.state.recipeId);
     };
 
@@ -50,20 +50,21 @@ class MealPlanner extends Component {
 
     render() {
         const orderedMealplans = this.props.mealplans.slice().sort(
-            (a,b) => moment(a.datetime).isBefore(b.datetime)
+            (a,b) => DateFns.isBefore(DateFns.parse(a), DateFns.parse(b))
         );
 
         const renderMealplans = orderedMealplans.map( (item, step) => {
             const recipe = this.props.recipes.find(x => x.id === Number(item.recipeId));
             const title = recipe ? recipe.title : "";
+            const dt = DateFns.parse(item.datetime);
             return (
                 <li className="mealplan-item" key={step}>
                     <Grid container>
                         <Grid item xs={12} sm={6} md={3} className="content-date">
-                            <Typography>{moment(item.datetime).format("Y-MM-DD")}</Typography>
+                            <Typography>{DateFns.format(dt, "YYYY-MM-DD")}</Typography>
                         </Grid>
                         <Grid item xs={12} sm={6} md={2} className="content-time">
-                            <Typography>{moment(item.datetime).format("HH:mm")}</Typography>
+                            <Typography>{DateFns.format(dt, "HH:mm")}</Typography>
                         </Grid>
                         <Grid item xs={12} sm={8} md={6} className="content-recipe">
                             <Typography>{title}</Typography>
@@ -107,7 +108,7 @@ class MealPlanner extends Component {
                                 value={this.state.date}
                                 onChange={this.handleChange}
                                 inputProps={{
-                                    min: moment().format("Y-MM-DD")
+                                    min: DateFns.format(Date(), "YYYY-MM-DD")
                                 }}
                             />
                         </Grid>
@@ -119,7 +120,7 @@ class MealPlanner extends Component {
                                 value={this.state.time}
                                 onChange={this.handleChange}
                                 inputProps={{
-                                    min: moment().format("HH:00"),
+                                    min: DateFns.format(Date(), "HH:mm"),
                                 }}
                             />
                         </Grid>
@@ -144,7 +145,7 @@ class MealPlanner extends Component {
                             </Button>
                         </Grid>
                     </Grid>
-                </form>
+                </form>                
             </Card>
         );
     }

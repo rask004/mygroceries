@@ -1,11 +1,10 @@
 import React from 'react';
 import {create} from 'react-test-renderer';
-import moment from 'moment';
+import * as D from 'date-fns';
 
 import {MealPlanner} from './MealPlanner';
 
 import sampleData from '../../data/initialState.json';
-import dataConstants from '../../data/constants';
 
 
 const mealplans = sampleData.mealplans;
@@ -20,7 +19,7 @@ const mealplanner = <MealPlanner
 
 
 describe('MealPlanner Component rendering tests', () => {
-    test.skip('rendering snapshot', () => {
+    test('rendering snapshot', () => {
         const component = create(mealplanner);
         expect(component.toJSON()).toMatchSnapshot();
     });
@@ -29,7 +28,7 @@ describe('MealPlanner Component rendering tests', () => {
         const component = create(mealplanner).root;
         const listitems = component.findAllByType('li');
         const orderedMealplans = mealplans.slice().sort(
-            (a,b) => moment(a.datetime).isBefore(b.datetime)
+            (a,b) => D.isBefore(D.parse(a), D.parse(b))
         );
         listitems.forEach( (item, step) => {
             const expectedMealplan = orderedMealplans[step];
@@ -42,7 +41,7 @@ describe('MealPlanner Component rendering tests', () => {
             const recipeId = recipe.id;
 
             const actualMealPlan = {
-                datetime: dateItem + "T" + timeItem + "Z",
+                datetime: dateItem + "T" + timeItem,
                 recipeId: recipeId
             };
 
@@ -52,15 +51,11 @@ describe('MealPlanner Component rendering tests', () => {
 });
 
 describe('MealPlanner Component behaviour tests', () => {
-    test.skip('selecting date shows correct time and recipes', () => {
-        // no date selection is being implemented at this time
-        expect(false).toBeTruthy();
-    });
 
     test('click add mealplan calls onAddMealplan', () => {
         const component = create(mealplanner).root;
 
-        const expectedDatetime = moment("2019-02-27T07:00Z");
+        const expectedDatetime = "2019-02-27T07:00";
         const expectedRecipeId = recipes[1].id;
 
         const mealPlanForm = component.findByProps({className:"add-form"});
@@ -90,15 +85,10 @@ describe('MealPlanner Component behaviour tests', () => {
         expect(component.props.onAddMealplan).toHaveBeenCalledWith(expectedDatetime, expectedRecipeId);
     });
 
-    test.skip('click add mealplan (fixed date) calls onAddMealplan', () => {
-        // no add mealplan with fixed date selection is being implemented at this time
-        expect(false).toBeTruthy();
-    });
-
     test('click remove mealplan calls onRemoveMealplan', () => {
         const component = create(mealplanner).root;
         const orderedMealplans = mealplans.slice().sort(
-            (a,b) => moment(a.datetime).isBefore(b.datetime)
+            (a,b) => D.isBefore(D.parse(a), D.parse(b))
         );
         const targetDateTime = orderedMealplans[0].datetime;
 

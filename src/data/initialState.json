@@ -128,15 +128,15 @@
   ],
   "mealplans": [
      {
-       "datetime": "2018-07-04T19:30Z",
+       "datetime": "2018-07-04T19:30",
        "recipeId": 1
      },
      {
-       "datetime": "2018-07-05T00:00Z",
+       "datetime": "2018-07-05T00:00",
        "recipeId": 2
      },
      {
-       "datetime": "2018-07-05T07:15Z",
+       "datetime": "2018-07-05T07:15",
        "recipeId": 3
      }
   ]

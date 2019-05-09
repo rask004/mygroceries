@@ -1,0 +1,424 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MealPlanner Component rendering tests rendering snapshot 1`] = `
+<div
+  className="MuiPaper-root-2 MuiPaper-elevation1-5 MuiPaper-rounded-3 MuiCard-root-1 mealplan"
+>
+  <h1
+    className="MuiTypography-root-29 MuiTypography-display1-33 MuiTypography-gutterBottom-56 mealplan-title"
+  >
+    Meal Planner
+  </h1>
+  <ul>
+    <li
+      className="mealplan-item"
+    >
+      <div
+        className="MuiGrid-container-65"
+      >
+        <div
+          className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-3-124 content-date"
+        >
+          <p
+            className="MuiTypography-root-29 MuiTypography-body1-38"
+          >
+            2018-07-04
+          </p>
+        </div>
+        <div
+          className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-2-123 content-time"
+        >
+          <p
+            className="MuiTypography-root-29 MuiTypography-body1-38"
+          >
+            19:30
+          </p>
+        </div>
+        <div
+          className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-8-115 MuiGrid-grid-md-6-127 content-recipe"
+        >
+          <p
+            className="MuiTypography-root-29 MuiTypography-body1-38"
+          >
+            test recipe
+          </p>
+        </div>
+        <div
+          className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-4-111 MuiGrid-grid-md-1-122"
+        >
+          <button
+            className="MuiButtonBase-root-188 MuiButton-root-162 MuiButton-contained-173 MuiButton-containedPrimary-174 MuiButton-raised-176 MuiButton-raisedPrimary-177 action-remove"
+            disabled={false}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onContextMenu={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex="0"
+            type="button"
+          >
+            <span
+              className="MuiButton-label-163"
+            >
+              <svg
+                fill="currentColor"
+                height="1em"
+                stroke="currentColor"
+                strokeWidth="0"
+                style={
+                  Object {
+                    "color": undefined,
+                  }
+                }
+                viewBox="0 0 448 512"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
+                />
+              </svg>
+            </span>
+            <span
+              className="MuiTouchRipple-root-245"
+            />
+          </button>
+        </div>
+      </div>
+    </li>
+    <li
+      className="mealplan-item"
+    >
+      <div
+        className="MuiGrid-container-65"
+      >
+        <div
+          className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-3-124 content-date"
+        >
+          <p
+            className="MuiTypography-root-29 MuiTypography-body1-38"
+          >
+            2018-07-05
+          </p>
+        </div>
+        <div
+          className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-2-123 content-time"
+        >
+          <p
+            className="MuiTypography-root-29 MuiTypography-body1-38"
+          >
+            00:00
+          </p>
+        </div>
+        <div
+          className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-8-115 MuiGrid-grid-md-6-127 content-recipe"
+        >
+          <p
+            className="MuiTypography-root-29 MuiTypography-body1-38"
+          >
+            another test recipe
+          </p>
+        </div>
+        <div
+          className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-4-111 MuiGrid-grid-md-1-122"
+        >
+          <button
+            className="MuiButtonBase-root-188 MuiButton-root-162 MuiButton-contained-173 MuiButton-containedPrimary-174 MuiButton-raised-176 MuiButton-raisedPrimary-177 action-remove"
+            disabled={false}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onContextMenu={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex="0"
+            type="button"
+          >
+            <span
+              className="MuiButton-label-163"
+            >
+              <svg
+                fill="currentColor"
+                height="1em"
+                stroke="currentColor"
+                strokeWidth="0"
+                style={
+                  Object {
+                    "color": undefined,
+                  }
+                }
+                viewBox="0 0 448 512"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
+                />
+              </svg>
+            </span>
+            <span
+              className="MuiTouchRipple-root-245"
+            />
+          </button>
+        </div>
+      </div>
+    </li>
+    <li
+      className="mealplan-item"
+    >
+      <div
+        className="MuiGrid-container-65"
+      >
+        <div
+          className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-3-124 content-date"
+        >
+          <p
+            className="MuiTypography-root-29 MuiTypography-body1-38"
+          >
+            2018-07-05
+          </p>
+        </div>
+        <div
+          className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-2-123 content-time"
+        >
+          <p
+            className="MuiTypography-root-29 MuiTypography-body1-38"
+          >
+            07:15
+          </p>
+        </div>
+        <div
+          className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-8-115 MuiGrid-grid-md-6-127 content-recipe"
+        >
+          <p
+            className="MuiTypography-root-29 MuiTypography-body1-38"
+          >
+            the third test recipe
+          </p>
+        </div>
+        <div
+          className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-4-111 MuiGrid-grid-md-1-122"
+        >
+          <button
+            className="MuiButtonBase-root-188 MuiButton-root-162 MuiButton-contained-173 MuiButton-containedPrimary-174 MuiButton-raised-176 MuiButton-raisedPrimary-177 action-remove"
+            disabled={false}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onContextMenu={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex="0"
+            type="button"
+          >
+            <span
+              className="MuiButton-label-163"
+            >
+              <svg
+                fill="currentColor"
+                height="1em"
+                stroke="currentColor"
+                strokeWidth="0"
+                style={
+                  Object {
+                    "color": undefined,
+                  }
+                }
+                viewBox="0 0 448 512"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
+                />
+              </svg>
+            </span>
+            <span
+              className="MuiTouchRipple-root-245"
+            />
+          </button>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <form
+    className="add-form"
+    onSubmit={[Function]}
+  >
+    <h2
+      className="MuiTypography-root-29 MuiTypography-title-35"
+    >
+      Add Meal
+    </h2>
+    <div
+      className="MuiGrid-container-65"
+    >
+      <div
+        className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-3-124"
+      >
+        <div
+          className="MuiFormControl-root-191 picker-date"
+        >
+          <div
+            className="MuiInputBase-root-208 MuiInput-root-195 MuiInput-underline-199 MuiInputBase-formControl-209 MuiInput-formControl-196"
+            onClick={[Function]}
+          >
+            <input
+              aria-invalid={false}
+              className="MuiInputBase-input-218 MuiInput-input-203 MuiInputBase-inputType-221 MuiInput-inputType-206"
+              disabled={false}
+              min="2019-05-09"
+              name="date"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              required={false}
+              type="date"
+              value="2019-05-09"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-2-123"
+      >
+        <div
+          className="MuiFormControl-root-191 picker-time"
+        >
+          <div
+            className="MuiInputBase-root-208 MuiInput-root-195 MuiInput-underline-199 MuiInputBase-formControl-209 MuiInput-formControl-196"
+            onClick={[Function]}
+          >
+            <input
+              aria-invalid={false}
+              className="MuiInputBase-input-218 MuiInput-input-203 MuiInputBase-inputType-221 MuiInput-inputType-206"
+              disabled={false}
+              min="21:41"
+              name="time"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              required={false}
+              type="time"
+              value="21:41"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-8-115 MuiGrid-grid-md-6-127"
+      >
+        <div
+          className="MuiFormControl-root-191"
+        >
+          <div
+            className="MuiInputBase-root-208 MuiInput-root-195 MuiInput-underline-199 MuiInputBase-formControl-209 MuiInput-formControl-196 select-recipe"
+            onClick={[Function]}
+          >
+            <div
+              className="MuiSelect-root-225"
+            >
+              <div
+                aria-haspopup="true"
+                aria-pressed="false"
+                className="MuiSelect-select-226 MuiSelect-selectMenu-229 MuiInputBase-input-218 MuiInput-input-203"
+                id="select-recipeId"
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+                tabIndex={0}
+              >
+                test recipe
+              </div>
+              <input
+                name="recipeId"
+                type="hidden"
+                value={1}
+              />
+              <svg
+                aria-hidden="true"
+                className="MuiSvgIcon-root-232 MuiSelect-icon-231"
+                focusable="false"
+                role="presentation"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M7 10l5 5 5-5z"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-4-111 MuiGrid-grid-md-1-122"
+      >
+        <button
+          className="MuiButtonBase-root-188 MuiButton-root-162 MuiButton-contained-173 MuiButton-containedPrimary-174 MuiButton-raised-176 MuiButton-raisedPrimary-177 action-add"
+          disabled={false}
+          onBlur={[Function]}
+          onContextMenu={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex="0"
+          type="submit"
+        >
+          <span
+            className="MuiButton-label-163"
+          >
+            <svg
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              strokeWidth="0"
+              style={
+                Object {
+                  "color": undefined,
+                }
+              }
+              viewBox="0 0 448 512"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+              />
+            </svg>
+          </span>
+          <span
+            className="MuiTouchRipple-root-245"
+          />
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+`;

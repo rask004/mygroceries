@@ -1,6 +1,6 @@
-import moment from 'moment';
 import * as reducers from "./reducers";
 import actiontypes from './constants';
+import frequencyTypes from './frequencyConstants';
 import sampledata from '../data/initialState.json';
 
 
@@ -229,35 +229,244 @@ describe('Test Reducers: Meal Plans', () => {
     test('remove meal plan' , () => {
         const state = [
             {
-                datetime: moment("2017-06-12 12:30+12:00"),
+                datetime: "2017-06-12 12:30",
                 recipeId: 2,
             }, 
             {
-                datetime: moment("2017-06-12 13:30+12:00"),
+                datetime: "2017-06-12 13:30",
                 recipeId: 5,
             }
         ];
         
-        const datetime = moment("2017-06-12 12:30+12:00");
+        const datetime = "2017-06-12 12:30";
         const remove_action = {
             type: actiontypes.REMOVE_MEAL,
             payload: datetime,
         }
         const expectedState = [
             {
-                datetime: moment("2017-06-12 13:30+12:00"),
+                datetime: "2017-06-12 13:30",
                 recipeId: 5,
             }
         ];
         
         expect(reducers.mealplans(state, remove_action)).toEqual(expectedState);
 
-        const bad_datetime = moment("2029-06-12 12:30+12:00");
+        const bad_datetime = "2029-06-12 12:30";
         const poor_remove_action = {
             type: actiontypes.REMOVE_MEAL,
             payload: bad_datetime,
         }
 
         expect(reducers.mealplans(state, poor_remove_action)).toEqual(state);
+    });
+});
+
+describe('Test Reducers: Shopping Lists', () => {
+    test('add shopping day' , () => {
+        const state = [
+            {
+                datetime: "2017-06-12",
+                recurring: true,
+                frequency: {type: frequencyTypes.WEEKLY, rate: 1},
+                items: [
+                    {id: 1, quantity: 3, unit: "each"},
+                    {id: 2, quantity: 5, unit: "each"},
+                ]
+            }, 
+            {
+                datetime: "2017-06-21",
+                recurring: true,
+                frequency: {type: frequencyTypes.MONTHLY, rate: 3},
+                items: [
+                    {id: 7, quantity: 300, unit: "grams"},
+                ]
+            }
+        ];
+
+        const datetime = "2017-06-26";
+        const recurring = true;
+        const frequencyType = frequencyTypes.WEEKLY; 
+        const frequencyRate =  1;
+        const good_action = {
+            type: actiontypes.ADD_SHOPPING_DAY,
+            payload: {datetime, recurring, frequency: {type: frequencyType, rate: frequencyRate} },
+        };
+        const expectedState = [
+            ...state,
+            {
+                datetime: datetime,
+                recurring: recurring,
+                frequency: {type: frequencyType, rate: frequencyRate},
+                items: [],
+            },
+        ];
+
+        expect(reducers.shoppinglists(state, good_action)).toEqual(expectedState);
+
+        const bad_datetime = "2017-06-12";
+        const bad_action = {
+            type: actiontypes.ADD_SHOPPING_DAY,
+            payload: {datetime: bad_datetime, recurring, frequency: {type: frequencyType, rate: frequencyRate} },
+        }
+        expect(reducers.shoppinglists(state, bad_action)).toEqual(state);
+    });
+
+    test('remove shopping day' , () => {
+        const state = [
+            {
+                datetime: "2017-06-12",
+                recurring: true,
+                frequency: {type: frequencyTypes.WEEKLY, rate: 1},
+                items: [
+                    {id: 1, quantity: 3, unit: "each"},
+                    {id: 2, quantity: 5, unit: "each"},
+                ]
+            }, 
+            {
+                datetime: "2017-06-21",
+                recurring: true,
+                frequency: {type: frequencyTypes.MONTHLY, rate: 3},
+                items: [
+                    {id: 7, quantity: 300, unit: "grams"},
+                ]
+            }
+        ];
+
+        const datetime = "2017-06-21";
+        const good_action = {
+            type: actiontypes.REMOVE_SHOPPING_DAY,
+            payload: datetime
+        };
+        const expectedState = [
+            {
+                datetime: "2017-06-12",
+                recurring: true,
+                frequency: {type: frequencyTypes.WEEKLY, rate: 1},
+                items: [
+                    {id: 1, quantity: 3, unit: "each"},
+                    {id: 2, quantity: 5, unit: "each"},
+                ]
+            },
+        ];
+
+        expect(reducers.shoppinglists(state, good_action)).toEqual(expectedState);
+
+        const bad_datetime = "2017-06-15";
+        const bad_action = {
+            type: actiontypes.REMOVE_SHOPPING_DAY,
+            payload: bad_datetime,
+        }
+
+        expect(reducers.shoppinglists(state, bad_action)).toEqual(state);
+    });
+
+    test('add shopping item' , () => {
+        const state = [
+            {
+                datetime: "2017-06-12",
+                recurring: true,
+                frequency: {type: frequencyTypes.WEEKLY, rate: 1},
+                items: [
+                    {id: 1, quantity: 3, unit: "each"},
+                    {id: 2, quantity: 5, unit: "each"},
+                ]
+            }, 
+            {
+                datetime: "2017-06-21",
+                recurring: true,
+                frequency: {type: frequencyTypes.MONTHLY, rate: 3},
+                items: [
+                    {id: 7, quantity: 300, unit: "grams"},
+                ]
+            }
+        ];
+
+        const datetime = "2017-06-21";
+        const item = {id: 4, quantity: 1, unit: "each"};
+        const good_action = {
+            type: actiontypes.ADD_SHOPPING_ITEM,
+            payload: {datetime, item },
+        };
+        const expectedState = [
+            {
+                datetime: "2017-06-12",
+                recurring: true,
+                frequency: {type: frequencyTypes.WEEKLY, rate: 1},
+                items: [
+                    {id: 1, quantity: 3, unit: "each"},
+                    {id: 2, quantity: 5, unit: "each"},
+                ]
+            }, 
+            {
+                datetime: "2017-06-21",
+                recurring: true,
+                frequency: {type: frequencyTypes.MONTHLY, rate: 3},
+                items: [
+                    {id: 7, quantity: 300, unit: "grams"},
+                    {id: 4, quantity: 1, unit: "each"},
+                ]
+            }
+        ];
+
+        expect(reducers.shoppinglists(state, good_action)).toEqual(expectedState);
+
+        const bad_datetime = "2017-06-15";
+        const bad_action = {
+            type: actiontypes.ADD_SHOPPING_ITEM,
+            payload: {bad_datetime, item},
+        }
+
+        expect(reducers.shoppinglists(state, bad_action)).toEqual(state);
+    });
+
+    test('remove shopping item' , () => {
+        const state = [
+            {
+                datetime: "2017-06-12",
+                recurring: true,
+                frequency: {type: frequencyTypes.WEEKLY, rate: 1},
+                items: [
+                    {id: 1, quantity: 3, unit: "each"},
+                    {id: 2, quantity: 5, unit: "each"},
+                ]
+            }
+        ];    
+
+        const datetime = "2017-06-12";
+        const id = 2;
+        const good_action = {
+            type: actiontypes.REMOVE_SHOPPING_ITEM,
+            payload: {datetime, id },
+        }
+        const expectedState = [
+            {
+                datetime: "2017-06-12",
+                recurring: true,
+                frequency: {type: frequencyTypes.WEEKLY, rate: 1},
+                items: [
+                    {id: 1, quantity: 3, unit: "each"},
+                ]
+            }
+        ];
+
+        expect(reducers.shoppinglists(state, good_action)).toEqual(expectedState);
+
+        const bad_datetime = "2017-06-15";
+        const bad_action = {
+            type: actiontypes.REMOVE_SHOPPING_ITEM,
+            payload: {datetime: bad_datetime, id},
+        }
+
+        expect(reducers.shoppinglists(state, bad_action)).toEqual(state);
+
+        const good_datetime = "2017-06-12";
+        const bad_id = 7;
+        const second_bad_action = {
+            type: actiontypes.REMOVE_SHOPPING_ITEM,
+            payload: {datetime: good_datetime, id: bad_id},
+        }
+
+        expect(reducers.shoppinglists(state, second_bad_action)).toEqual(state);
     });
 });

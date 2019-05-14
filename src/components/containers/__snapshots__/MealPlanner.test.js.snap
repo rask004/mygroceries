@@ -312,14 +312,14 @@ exports[`MealPlanner Component rendering tests rendering snapshot 1`] = `
               aria-invalid={false}
               className="MuiInputBase-input-218 MuiInput-input-203 MuiInputBase-inputType-221 MuiInput-inputType-206"
               disabled={false}
-              min="12:26"
+              min="18:29"
               name="time"
               onBlur={[Function]}
               onChange={[Function]}
               onFocus={[Function]}
               required={false}
               type="time"
-              value="12:26"
+              value="18:29"
             />
           </div>
         </div>

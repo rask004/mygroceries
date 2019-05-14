@@ -1,4 +1,5 @@
 import C from './constants';
+import frequencyTypes from './frequencyConstants'
 import fetch from 'isomorphic-fetch';
 
 
@@ -55,5 +56,33 @@ export const removePlannedMeal = (datetime) => (
     {
         type: C.REMOVE_MEAL,
         payload: datetime,
+    }
+);
+
+export const addShoppingDay = (datetime, recurring, frequencyType=frequencyTypes.WEEKLY, frequencyRate=1) => (
+    {
+        type: C.ADD_SHOPPING_DAY,
+        payload: {datetime, recurring, frequency: {type: frequencyType, rate: frequencyRate} }
+    }
+);
+
+export const removeShoppingDay = (datetime) => (
+    {
+        type: C.REMOVE_SHOPPING_DAY,
+        payload: datetime
+    }
+);
+
+export const addShoppingItem = (datetime, item) => (
+    {
+        type: C.ADD_SHOPPING_ITEM,
+        payload: {datetime, item}
+    }
+);
+
+export const removeShoppingItem = (datetime, id) => (
+    {
+        type: C.REMOVE_SHOPPING_ITEM,
+        payload: {datetime, id}
     }
 );

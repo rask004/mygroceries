@@ -50,6 +50,7 @@ export const products = (state=[], action) => {
 }
 
 export const mealplans = (state=[], action) => {
+    // enact sorting when adding meals.
     switch(action.type) {
         case C.ADD_MEAL:
             const dateTimeUsedAlready = state.some(item => item.datetime === action.payload.datetime);
@@ -60,10 +61,61 @@ export const mealplans = (state=[], action) => {
                 action.payload,
             ]
         case C.REMOVE_MEAL:
-            return state.filter(item => !item.datetime.isSame(action.payload));
+            return state.filter(item => item.datetime !== action.payload);
         default:
             return state;
     };
+}
+
+export const shoppinglists = (state=[], action) => {
+    const listforDateTimeExists = state.some(item => item.datetime === action.payload.datetime);
+    switch(action.type) {
+        case C.ADD_SHOPPING_DAY:
+            if (listforDateTimeExists) {
+                return state;
+            } else {
+                const newList = action.payload;
+                newList.items = [];
+                const newState =  [
+                    ...state,
+                    newList
+                ];
+                return newState;
+            }
+
+        case C.REMOVE_SHOPPING_DAY:
+            return state.filter(item => item.datetime !== action.payload);
+
+        case C.ADD_SHOPPING_ITEM:
+            if (!listforDateTimeExists) {
+                return state;
+            } else {
+                const shoppingList = state.find(item => item.datetime === action.payload.datetime);
+                const newState = state.filter(item => item.datetime !== action.payload.datetime);
+                shoppingList.items.push(action.payload.item);
+                // enact sorting of shopping lists by date.
+                return [
+                    ...newState,
+                    shoppingList
+                ]
+                
+            }
+
+        case C.REMOVE_SHOPPING_ITEM:
+            if (!listforDateTimeExists) {
+                return state;
+            } else {
+                const shoppingList = state.find(item => item.datetime === action.payload.datetime);
+                shoppingList.items = shoppingList.items.filter(item => item.id !== action.payload.id)
+                const newState = state.filter(item => item.datetime !== action.payload.datetime);
+                newState.push(shoppingList);
+                // enact sorting of shopping lists by date.
+                return newState;
+            }
+
+        default:
+            return state;
+    }
 }
 
 
@@ -71,4 +123,5 @@ export default combineReducers({
     products,
     recipes,
     mealplans,
+    shoppinglists
 });

@@ -1,7 +1,6 @@
-import moment from 'moment';
-
 import * as actions from './actions';
 import actiontypes from './constants';
+import frequencyTypes from './frequencyConstants';
 
 
 describe('Test Action Creators: Products', () => {
@@ -81,7 +80,7 @@ describe('Test Action Creators: Recipes', () => {
 
 describe('Test Action Creators: Meal Plans', () => {
     test('add meal plan' , () => {
-        const datetime = moment("2020-06-12 12:30:30+12:00");
+        const datetime = "2020-06-12T12:30";
         const recipeId = 1;
         const expectedAction = {
             type: actiontypes.ADD_MEAL,
@@ -91,11 +90,83 @@ describe('Test Action Creators: Meal Plans', () => {
     });
 
     test('remove meal plan' , () => {
-        const datetime = moment("2020-06-12 12:30:30+12:00");
+        const datetime = "2020-06-12T12:30";
         const expectedAction = {
             type: actiontypes.REMOVE_MEAL,
             payload: datetime,
         }
         expect(actions.removePlannedMeal(datetime)).toEqual(expectedAction);
+    });
+});
+
+describe('Test Action Creators: Shopping Lists', () => {
+    test('add shopping day' , () => {
+        const datetime = "2020-06-12";
+        const recurring = true;
+        const frequencyType = frequencyTypes.MONTHLY;
+        const frequencyRate = 2;
+        const expectedAction = {
+            type: actiontypes.ADD_SHOPPING_DAY,
+            payload: {datetime, recurring, frequency: {type: frequencyType, rate: frequencyRate} },
+        }
+        expect(actions.addShoppingDay(datetime, recurring, frequencyType, frequencyRate))
+            .toEqual(expectedAction);
+
+        const expectedActionDefaultRate = {
+            type: actiontypes.ADD_SHOPPING_DAY,
+            payload: {datetime, recurring, frequency: {type: frequencyType, rate: 1} },
+        }
+        expect(actions.addShoppingDay(datetime, recurring, frequencyType))
+            .toEqual(expectedActionDefaultRate);
+
+        const expectedActionDefaultFreq = {
+            type: actiontypes.ADD_SHOPPING_DAY,
+            payload: {datetime, recurring, frequency: {type: frequencyTypes.WEEKLY, rate: 1} },
+        }
+        expect(actions.addShoppingDay(datetime, recurring))
+            .toEqual(expectedActionDefaultFreq);
+
+        const expectedActionOneOff = {
+            type: actiontypes.ADD_SHOPPING_DAY,
+            payload: {datetime, recurring: false, frequency: {type: frequencyTypes.WEEKLY, rate: 1}},
+        }
+        expect(actions.addShoppingDay(datetime, false))
+            .toEqual(expectedActionOneOff);
+    });
+
+    test('remove shopping day' , () => {
+        const datetime = "2020-06-12";
+        const expectedAction = {
+            type: actiontypes.REMOVE_SHOPPING_DAY,
+            payload: datetime,
+        }
+        expect(actions.removeShoppingDay(datetime))
+            .toEqual(expectedAction);
+    });
+
+    test('add shopping item' , () => {
+        const datetime = "2020-06-12";
+        const item = {
+            id: 1,
+            quantity: 100,
+            unit: "grams",
+        }
+        const expectedAction = {
+            type: actiontypes.ADD_SHOPPING_ITEM,
+            payload: {datetime, item},
+        }
+        expect(actions.addShoppingItem(datetime, item))
+            .toEqual(expectedAction);
+    });
+
+    test('remove shopping item' , () => {
+        const datetime = "2020-06-12";
+        const id = 1;
+        const expectedAction = {
+            type: actiontypes.REMOVE_SHOPPING_ITEM,
+            payload: {datetime, id},
+        }
+        expect(actions.removeShoppingItem(datetime, id))
+            .toEqual(expectedAction);
     });
 });

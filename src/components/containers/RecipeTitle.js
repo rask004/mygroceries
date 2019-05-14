@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {EditableTextItem} from '../ui/forms';
+import {EditableTextItem} from '../ui/EditableTextItem';
 import Typography from '@material-ui/core/Typography';
 import 'typeface-roboto';
 
@@ -8,8 +8,8 @@ import 'typeface-roboto';
 const TitleSection = (props) => {
     return (
         <Typography variant="display1" gutterBottom={true}>
-            <EditableTextItem 
-                className="detail-title"
+            <EditableTextItem
+                variant="detail-title"
                 updateText={props.updateTitle}
                 text={props.title}
                 placeholder="Recipe Title"

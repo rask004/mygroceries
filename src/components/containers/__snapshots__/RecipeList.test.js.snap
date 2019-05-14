@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`InstructionsList Component render tests renders correctly 1`] = `
-Array [
-  "",
-  <ul
+<div>
+  
+  <ol
     className="MuiList-root-1 MuiList-padding-2"
   >
     <li
@@ -234,7 +234,7 @@ Array [
         />
       </button>
     </li>
-  </ul>,
+  </ol>
   <form
     className="recipe-add"
     onSubmit={[Function]}
@@ -299,6 +299,6 @@ Array [
         value=""
       />
     </div>
-  </form>,
-]
+  </form>
+</div>
 `;

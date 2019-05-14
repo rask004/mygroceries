@@ -33,20 +33,21 @@ class RecipeMaster extends Component {
         this.state = {
             currentRecipeId: currentId,
         }
-
-        this.handleSelectRecipe = this.handleSelectRecipe.bind(this);
-        this.handleRemoveRecipe = this.handleRemoveRecipe.bind(this);
     }
 
-    handleSelectRecipe(id) {
+    handleSelectRecipe = (id) => {
         this.setState({currentRecipeId: id});
     }
 
-    handleRemoveRecipe(id) {
+    handleRemoveRecipe = (id) => {
         this.props.onRemoveRecipe(id);
     }
 
     render() {
+        const {
+            recipes,
+            onAddRecipe
+        } = this.props;
         return (
             <Card className="recipe-master">
 
@@ -54,8 +55,8 @@ class RecipeMaster extends Component {
 
                 <RecipeList 
                     currentRecipeId={this.state.currentRecipeId}
-                    recipes={this.props.recipes}
-                    onAddRecipe={this.props.onAddRecipe}
+                    recipes={recipes}
+                    onAddRecipe={onAddRecipe}
                     onSelectRecipe={this.handleSelectRecipe}
                     onRemoveRecipe={this.handleRemoveRecipe}
                 />

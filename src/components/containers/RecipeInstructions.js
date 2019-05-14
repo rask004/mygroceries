@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {ListWithAddForm} from '../ui/lists';
+import ListWithAddItemByNameForm from '../ui/ListWithAddItemByNameForm';
 import {FaPencilAlt, FaTrash, FaSave, FaRegTimesCircle} from 'react-icons/fa';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
@@ -16,36 +16,30 @@ const defaultInstructionsState = {
 
 
 class InstructionsSection extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = defaultInstructionsState;
-
-        this.onChange = this.onChange.bind(this);
-        this.handleSaveEditedInstruction = this.handleSaveEditedInstruction.bind(this);
-        this.handleCancelEditingInstruction = this.handleCancelEditingInstruction.bind(this);
-        this.handleToggleEditingInstruction = this.handleToggleEditingInstruction.bind(this);
+    state = {
+        editingInstruction: -1,
+        editedInstructionText: "",
     }
 
-    onChange(event) {
+    onChange = (event) => {
         const target = event.target;
         const name = target.name;
         const value = target.value;
         this.setState({[name] : value});
     }
 
-    handleSaveEditedInstruction (event, index) {
+    handleSaveEditedInstruction = (event, index) => {
         event.preventDefault();
         const text = this.state.editedInstructionText;
         this.props.saveInstruction(index, text);
         this.setState(defaultInstructionsState);
     }
 
-    handleCancelEditingInstruction() {
+    handleCancelEditingInstruction = () => {
         this.setState(defaultInstructionsState);
     }
 
-    handleToggleEditingInstruction(index) {
+    handleToggleEditingInstruction = (index) => {
         this.setState({
             editingInstruction: index,
             editedInstructionText: this.props.instructions[index],
@@ -53,7 +47,12 @@ class InstructionsSection extends Component {
     }
 
     render() {
-        const instructions = this.props.instructions.map((item, step) => { 
+        const {
+            instructions,
+            removeInstruction,
+            addInstruction
+        } = this.props;
+        const elementInstructions = instructions.map((item, step) => { 
             return (
                     <li key={step}>
                         <Typography component="span">
@@ -95,7 +94,7 @@ class InstructionsSection extends Component {
                                 <Grid item component="span" xs={12}  sm={6} md={1} lg={1}>
                                     <Button type="button" color="primary" size="medium" variant="contained"
                                         className="action-remove"
-                                        onClick={() => this.props.removeInstruction(step)}><FaTrash/></Button>
+                                        onClick={() => removeInstruction(step)}><FaTrash/></Button>
                                 </Grid>
                             </Grid>
                         }
@@ -105,14 +104,14 @@ class InstructionsSection extends Component {
         });
 
         const title = <Typography className="detail-subtitle" variant="title" gutterBottom={true}>Instructions</Typography>;
-        const element = <ListWithAddForm orderedlist={true}
+        const element = <ListWithAddItemByNameForm orderedlist={true}
                     classFormName="instruction-add"
                     placeholder="New instruction..."
                     title={title}
-                    addItem={this.props.addInstruction}
+                    addItem={addInstruction}
                 >
-                    {instructions}
-                </ListWithAddForm>
+                    {elementInstructions}
+                </ListWithAddItemByNameForm>
 
         return (
             <div className="detail-instructions">

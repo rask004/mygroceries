@@ -8,56 +8,58 @@ import 'typeface-roboto';
 
 
 class EditableTextItem extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isEditing: false,
-            text: props.text,
-        };
+    state = {
+        isEditing: false,
+        text: this.props.text,
+    };
 
-        this.toggleEditing = this.toggleEditing.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-        this.onChange = this.onChange.bind(this);
-    }
-
-    toggleEditing(event) {
-        this.setState(
+    toggleEditing = () => {
+        this.setState( (prevState) =>
             {
-                isEditing: !this.state.isEditing,
-                text: this.props.text,
+                return {
+                    isEditing: !prevState.isEditing,
+                    text: this.props.text,
+                }
             }
         );
     }
 
-    onSubmit(event) {
+    onSubmit = (event) => {
         event.preventDefault();
         const text = this.state.text;
         this.props.updateText(text);
-        this.setState(
+        this.setState( (prevState) =>
             {
-                isEditing: !this.state.isEditing
+                return {isEditing: !prevState.isEditing};
             }
         );
     }
 
-    onChange(event) {
-        this.setState({text: event.target.value})
+    onChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+        this.setState({[name]: value})
     }
 
     render() {
+        const {
+            variant,
+            text,
+            placeholder
+        } = this.props;
         return (
             <React.Fragment>
                 {
                     !this.state.isEditing ?
                     <Grid container component="div" 
-                        className={this.props.className}>
+                        className={variant}>
                         <Grid item xs={12} md={3} component="span" className="detail-content-title">
-                        {this.props.text}
+                        {text}
                         </Grid>
                         <Grid item xs={12} md={1} component="span">
                         <Button 
                             color="primary" size="medium" variant="contained"
-                            type="button" onClick={this.toggleEditing}
+                            type="button" onClick={(e) => this.toggleEditing()}
                             className="action-toggle">
                             <FaPencilAlt/>
                         </Button>
@@ -69,7 +71,7 @@ class EditableTextItem extends Component {
                             <Grid item xs={12} md={3} component="span">
                                 <Input value={this.state.text} onChange={this.onChange} 
                                     required name="text"
-                                    placeholder={this.props.placeholder} />
+                                    placeholder={placeholder} />
                             </Grid>
                             <Grid item xs={12} md={1} component="span">
                                 <Button 
@@ -95,16 +97,19 @@ class EditableTextItem extends Component {
 }
 
 EditableTextItem.propTypes = {
-    className: PropTypes.string,
+    variant: PropTypes.string,
     updateText: PropTypes.func.isRequired,
     text: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
 }
 
 EditableTextItem.defaultProps = {
-    className: "",
+    variant: "",
     placeholder: "",
 }
+
+
+
 
 
 export {EditableTextItem};

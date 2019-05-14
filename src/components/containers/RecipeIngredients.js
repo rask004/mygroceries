@@ -9,7 +9,12 @@ import 'typeface-roboto';
 
 
 const IngredientsSection = (props) => {
-    const ingredients = props.ingredients.map((item) => { 
+    const {
+        ingredients,
+        removeIngredient,
+        addIngredient
+    } = props;
+    const children = ingredients.map((item) => { 
         return (
             <li key={item.id}>
                 <Typography component="span">
@@ -21,7 +26,7 @@ const IngredientsSection = (props) => {
                         <Grid item component="span" xs={12} sm={6} md={1} lg={1}>
                         <Button type="button" color="primary" size="medium" variant="contained"
                             className="action-remove"
-                            onClick={() => props.removeIngredient(item.id)}>
+                            onClick={() => removeIngredient(item.id)}>
                             <FaTrash/>
                         </Button>
                         </Grid>
@@ -38,10 +43,10 @@ const IngredientsSection = (props) => {
             orderedlist={false}
             className="detail-ingredients"
             title={title}
-            onClick={props.addIngredient}
+            onClick={addIngredient}
             buttonContent="Add Ingredient..."
         >
-            {ingredients}
+            {children}
         </ListWithAddButton>
     );
 }

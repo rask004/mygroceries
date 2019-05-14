@@ -12,12 +12,6 @@ import '../../css/recipedetail.css';
 
 
 class RecipeDetail extends Component {
-
-    getRecipe() {
-        const id = Number(this.props.id);
-        return this.props.recipes.find(item => item.id === id);
-    }
-
     constructor(props) {
         super(props);
         const id = Number(props.id);
@@ -30,53 +24,49 @@ class RecipeDetail extends Component {
             newTitle: value,
             showNewIngredientModal: false,
         }
-
-        this.handleSubmitNewInstruction = this.handleSubmitNewInstruction.bind(this);
-        this.handleSubmitNewTitle = this.handleSubmitNewTitle.bind(this);
-        this.handleRemoveInstruction = this.handleRemoveInstruction.bind(this);
-        this.handleSaveInstruction = this.handleSaveInstruction.bind(this);
-        this.toggleNewIngredientModal = this.toggleNewIngredientModal.bind(this);
-        this.handleSubmitIngredient = this.handleSubmitIngredient.bind(this);
-        this.handleRemoveIngredient = this.handleRemoveIngredient.bind(this);
-        this.getRecipe = this.getRecipe.bind(this);
     }
 
-    toggleNewIngredientModal() {
+    getRecipe = () => {
+        const id = Number(this.props.id);
+        return this.props.recipes.find(item => item.id === id);
+    }
+
+    toggleNewIngredientModal = () => {
         this.setState({showNewIngredientModal: !this.state.showNewIngredientModal});
     }
 
-    handleSaveInstruction(index, text) {
+    handleSaveInstruction = (index, text) => {
         const recipe = this.getRecipe();
         recipe.instructions[index] = text;
         this.props.onUpdateRecipe(recipe);
     }
 
-    handleSubmitNewInstruction(text) {
+    handleSubmitNewInstruction = (text) => {
         const recipe = this.getRecipe();
         recipe.instructions.push(text);
         this.props.onUpdateRecipe(recipe);
     }
 
-    handleRemoveInstruction(index) {
+    handleRemoveInstruction = (index) => {
         const recipe = this.getRecipe();
         recipe.instructions.splice(index, 1);
         this.props.onUpdateRecipe(recipe);
     }
 
-    handleSubmitNewTitle(title) {
+    handleSubmitNewTitle = (title) => {
         const recipe = this.getRecipe();
         recipe.title = title;
         this.props.onUpdateRecipe(recipe);
     }
 
-    handleRemoveIngredient(id) {
+    handleRemoveIngredient = (id) => {
         const recipe = this.getRecipe();
         const ingredients = recipe.ingredients.slice().filter(item => item.id !== id);
         recipe.ingredients = ingredients;
         this.props.onUpdateRecipe(recipe);
     }
 
-    handleSubmitIngredient(ingredient, quantity, unit) {
+    handleSubmitIngredient = (ingredient, quantity, unit) => {
         let ingredientWasAdded = false;
 
         // first handle if new product, and get ingredient id
@@ -131,6 +121,7 @@ class RecipeDetail extends Component {
     }
 
     render() {
+        const products = this.props.products;
         const recipe = this.getRecipe();
 
         let ingredients;
@@ -139,7 +130,7 @@ class RecipeDetail extends Component {
         if (recipe) {
             instructions = recipe.instructions.slice();
             ingredients = recipe.ingredients.map((item) => {
-                const product = this.props.products.find(x => x.id === item.id);
+                const product = products.find(x => x.id === item.id);
                 if(product !== undefined) {
                     item.name = product.name;
                 }
@@ -180,7 +171,7 @@ class RecipeDetail extends Component {
                 <NewIngredientModal show={this.state.showNewIngredientModal} 
                 onClose={this.toggleNewIngredientModal}
                 onAddIngredient={this.handleSubmitIngredient}
-                products={this.props.products}
+                products={products}
                 />
 
             </React.Fragment>

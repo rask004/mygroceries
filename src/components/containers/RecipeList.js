@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {FaTrash} from 'react-icons/fa';
-import {ListWithAddForm} from '../ui/lists';
+import ListWithAddItemByNameForm from '../ui/ListWithAddItemByNameForm';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import ListItem from '@material-ui/core/ListItem';
@@ -9,25 +9,25 @@ import '../../css/recipemaster.css';
 
 
 class RecipeList extends Component {
-    constructor(props) {
-        super(props);
-
-        this.handleSubmitNewRecipe = this.handleSubmitNewRecipe.bind(this);
-    }
-
-    handleSubmitNewRecipe(title) {
+    handleSubmitNewRecipe = (title) => {
         const ids = this.props.recipes.map((item) => (item.id));
         const maxId = Number(Math.max(...ids));
         this.props.onAddRecipe(maxId + 1, title);
     }
 
     render() {
-        const recipes = this.props.recipes.map( (item) => {
+        const {
+            recipes,
+            currentRecipeId,
+            onSelectRecipe, 
+            onRemoveRecipe
+        } = this.props;
+        const children = recipes.map( (item) => {
             const id = Number(item.id);
             return (
-                <ListItem key={id} selected={id === this.props.currentRecipeId}>
+                <ListItem key={id} selected={id === currentRecipeId}>
                     <Button color="default" size="medium" variant="text"
-                        onClick={() => this.props.onSelectRecipe(id)}
+                        onClick={() => onSelectRecipe(id)}
                         href={"/recipe/" + id + "/"}
                         disableRipple={false}
                         disableFocusRipple={false}
@@ -36,7 +36,7 @@ class RecipeList extends Component {
                         {item.title}
                     </Button>
                     <Button color="primary" size="medium" variant="contained"
-                        onClick={() => this.props.onRemoveRecipe(id)}
+                        onClick={() => onRemoveRecipe(id)}
                         disableRipple={false}
                         disableFocusRipple={false}
                         className="action-remove"
@@ -47,10 +47,10 @@ class RecipeList extends Component {
             );
         });
         return (
-            <ListWithAddForm orderedlist={false} placeholder="Add Recipe..."
+            <ListWithAddItemByNameForm orderedlist={false} placeholder="Add Recipe..."
                 classFormName="recipe-add" addItem={this.handleSubmitNewRecipe}>
-                {recipes}
-            </ListWithAddForm>
+                {children}
+            </ListWithAddItemByNameForm>
         );
     }
 }

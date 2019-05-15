@@ -68,9 +68,10 @@ export const mealplans = (state=[], action) => {
 }
 
 export const shoppinglists = (state=[], action) => {
-    const listforDateTimeExists = state.some(item => item.datetime === action.payload.datetime);
     switch(action.type) {
         case C.ADD_SHOPPING_DAY:
+            const listforDateTimeExists = 
+                state.some(item => item.datetime === action.payload.datetime);
             if (listforDateTimeExists) {
                 return state;
             } else {
@@ -87,7 +88,9 @@ export const shoppinglists = (state=[], action) => {
             return state.filter(item => item.datetime !== action.payload);
 
         case C.ADD_SHOPPING_ITEM:
-            if (!listforDateTimeExists) {
+            const listforDateTimeExistsAddItem = 
+                state.some(item => item.datetime === action.payload.datetime);
+            if (!listforDateTimeExistsAddItem) {
                 return state;
             } else {
                 const shoppingList = state.find(item => item.datetime === action.payload.datetime);
@@ -97,12 +100,14 @@ export const shoppinglists = (state=[], action) => {
                 return [
                     ...newState,
                     shoppingList
-                ]
+                ];
                 
             }
 
         case C.REMOVE_SHOPPING_ITEM:
-            if (!listforDateTimeExists) {
+            const listforDateTimeExistsRemoveItem = 
+                state.some(item => item.datetime === action.payload.datetime);
+            if (!listforDateTimeExistsRemoveItem) {
                 return state;
             } else {
                 const shoppingList = state.find(item => item.datetime === action.payload.datetime);

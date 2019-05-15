@@ -3,7 +3,7 @@
      {
         "id":1,
         "name":"apple",
-        "coo":"New Zealand",
+        "coo":"NZL",
         "brand":"Pure Orchards LTD",
         "category":"produce",
         "subcategory":"fruit",
@@ -12,7 +12,7 @@
      {
         "id":2,
         "name":"orange",
-        "coo":"New Zealand",
+        "coo":"NZL",
         "brand":"Pure Orchards LTD",
         "category":"produce",
         "subcategory":"fruit",
@@ -21,7 +21,7 @@
      {
         "id":3,
         "name":"banana",
-        "coo":"Mexico",
+        "coo":"MEX",
         "brand":"Dole LTD",
         "category":"produce",
         "subcategory":"fruit",
@@ -30,7 +30,7 @@
      {
         "id":4,
         "name":"bluetop milk",
-        "coo":"New Zealand",
+        "coo":"NZL",
         "brand":"Anchor LTD",
         "category":"foodstuffs",
         "subcategory":"dairy",
@@ -39,7 +39,7 @@
      {
         "id":5,
         "name":"apple",
-        "coo":"California",
+        "coo":"USA",
         "brand":"San Fernando Produce",
         "category":"produce",
         "subcategory":"fruit",
@@ -48,7 +48,7 @@
      {
         "id":6,
         "name":"gherkin",
-        "coo":"Australia",
+        "coo":"AUS",
         "brand":"Sunkiss Products",
         "category":"canned foods",
         "subcategory":"pickles",
@@ -57,7 +57,7 @@
      {
         "id":7,
         "name":"anaroba extra-strong coffee",
-        "coo":"Argentina",
+        "coo":"ARG",
         "brand":"Rio de Feliz Comidas",
         "category":"drinks",
         "subcategory":"coffee",
@@ -139,5 +139,42 @@
        "datetime": "2018-07-05T07:15",
        "recipeId": 3
      }
+  ],
+  "shoppinglists": [
+     {
+        "datetime": "2018-07-14",
+         "recurring": true,
+         "frequency": {
+            "type": "weekly", 
+            "rate": 1
+         },
+         "items": [
+            {
+               "id": 2, 
+               "quantity": 5,
+               "unit": "each"
+            },
+            {
+               "id": 5, 
+               "quantity": 3,
+               "unit": "each"
+            }
+         ]
+     },
+     {
+      "datetime": "2018-07-17",
+       "recurring": true,
+       "frequency": {
+          "type": "monthly", 
+          "rate": 2
+       },
+       "items": [
+          {
+             "id": 7, 
+             "quantity": 300,
+             "unit": "grams"
+          }
+       ]
+   }
   ]
 }

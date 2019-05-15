@@ -4,6 +4,7 @@ import NavBar from './components/containers/NavigationBar';
 import RecipeMaster from './components/containers/RecipeMaster';
 import RecipeDetail from './components/containers/RecipeDetail';
 import MealPlanner from './components/containers/MealPlanner';
+import ShoppingLists from './components/containers/ShoppingList';
 import './css/routecontainers.css';
 
 
@@ -25,7 +26,7 @@ const routes = (
                     </Route>
                     <Route path="/mealplanner/" component={MealPlanner}>
                     </Route>
-                    <Route path="/shopping/">
+                    <Route path="/shopping/" component={ShoppingLists}>
                     </Route>
                 </Switch>
             </main>

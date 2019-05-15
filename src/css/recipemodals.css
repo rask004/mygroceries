@@ -9,6 +9,10 @@
     margin: 0.25em;
 }
 
+.control-add-form {
+    margin-bottom: 2em;
+}
+
 .add-ingredient label {
     margin: 0 1em 0 0;
     text-align: right;

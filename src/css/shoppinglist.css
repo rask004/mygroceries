@@ -1,0 +1,40 @@
+.shopping-list {
+    border-radius: 0.25em;
+    background-color: #B0B0FF;
+    background-image: linear-gradient(to bottom right, #B0B0FF, #C8C8FF);
+    padding: 1em 1em 1.5em 1.5em;
+    flex-grow: 1;
+}
+
+.shopping-list h1 {
+    margin: 0.5em;
+    padding: 0.5em;
+}
+
+.content-shopping, .content-notice, .content-add-section { 
+    margin: 2.5em 0 0 2em;
+}
+
+.content-shopping .content-title {
+    padding-right: 0.2em;
+}
+
+.content-shopping ul {
+    padding: 0;
+    margin-top: 2em;
+    list-style: none;
+}
+
+.content-shopping li {
+    padding: 0.5em 0.25em 0.25em;
+    margin-bottom: 0.5em;
+}
+
+.content-shopping li div > span {
+    padding-top: 0.1em;
+    text-transform: captialize;
+}
+
+.content-quantity {
+    padding-right: 0.5em;
+}

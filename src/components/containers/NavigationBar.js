@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {FaHome, FaUtensils, FaDrumstickBite, FaCalendar} from 'react-icons/fa';
+import {FaHome, FaUtensils, FaDrumstickBite, FaCalendar, FaList} from 'react-icons/fa';
 import {IconContext} from 'react-icons';
 import '../../css/navbar.css';
 import Button from '@material-ui/core/Button';
@@ -21,6 +21,10 @@ const navLinks = [
     {
         href: "/mealplanner/",
         icon: <FaCalendar/>
+    },
+    {
+        href: "/shopping/",
+        icon: <FaList/>
     }
 ];
 

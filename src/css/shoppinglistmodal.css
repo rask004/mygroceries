@@ -1,0 +1,14 @@
+.add-shopping {
+    background-color: #B0B0FF;
+    background-image: linear-gradient(to bottom right, #B0B0FF, #C8C8FF);
+    padding: 1em;
+}
+
+.add-shopping button {
+    padding: 1em;
+    margin: 0.25em;
+}
+
+.input-content {
+    padding: 0 1em;
+}

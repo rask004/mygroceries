@@ -120,7 +120,7 @@ class MealPlanner extends Component {
                                 value={this.state.time}
                                 onChange={this.handleChange}
                                 inputProps={{
-                                    min: DateFns.format(Date(), "HH:mm"),
+                                    min: DateFns.format(Date(), "HH:00"),
                                 }}
                             />
                         </Grid>

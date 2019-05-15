@@ -1,0 +1,518 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ShoppingList Component rendering tests rendering snapshot 1`] = `
+<div
+  className="MuiPaper-root-2 MuiPaper-elevation1-5 MuiPaper-rounded-3 MuiCard-root-1 shopping-list"
+>
+  <h1
+    className="MuiTypography-root-29 MuiTypography-display1-33 MuiTypography-gutterBottom-56 shopping-title"
+  >
+    Shopping Lists
+  </h1>
+  <div
+    className="content-shopping"
+  >
+    <div
+      className="MuiGrid-container-65"
+    >
+      <div
+        className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-11-132"
+      >
+        <h2
+          className="MuiTypography-root-29 MuiTypography-title-35 content-date"
+        >
+          Saturday, 14th July
+        </h2>
+      </div>
+      <div
+        align="right"
+        className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-1-122"
+      >
+        <button
+          className="MuiButtonBase-root-188 MuiButton-root-162 MuiButton-contained-173 MuiButton-containedPrimary-174 MuiButton-raised-176 MuiButton-raisedPrimary-177 remove-list-action"
+          disabled={false}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onContextMenu={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex="0"
+          type="button"
+        >
+          <span
+            className="MuiButton-label-163"
+          >
+            <svg
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              strokeWidth="0"
+              style={
+                Object {
+                  "color": undefined,
+                }
+              }
+              viewBox="0 0 448 512"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
+              />
+            </svg>
+          </span>
+          <span
+            className="MuiTouchRipple-root-191"
+          />
+        </button>
+      </div>
+    </div>
+    <ul
+      className="content-items"
+    >
+      <li>
+        <div
+          className="MuiGrid-container-65"
+        >
+          <div
+            className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-3-124"
+          >
+            <span
+              className="MuiTypography-root-29 MuiTypography-body1-38 content-name"
+            >
+              orange
+            </span>
+          </div>
+          <div
+            className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-2-123"
+          >
+            <span
+              className="MuiTypography-root-29 MuiTypography-body1-38 content-brand"
+            >
+              Pure Orchards LTD
+            </span>
+          </div>
+          <div
+            className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-2-123"
+          >
+            <span
+              className="MuiTypography-root-29 MuiTypography-body1-38 content-country"
+            >
+              New Zealand
+            </span>
+          </div>
+          <div
+            className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-1-122"
+          >
+            <span
+              className="MuiTypography-root-29 MuiTypography-body1-38 MuiTypography-alignRight-53 content-quantity"
+            >
+              5
+            </span>
+          </div>
+          <div
+            className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-1-122"
+          >
+            <span
+              className="MuiTypography-root-29 MuiTypography-body1-38 content-unit"
+            >
+              each
+            </span>
+          </div>
+          <div
+            className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-2-123"
+          >
+            <span
+              className="MuiTypography-root-29 MuiTypography-body1-38 MuiTypography-alignRight-53 content-price"
+            >
+              -unit price-
+            </span>
+          </div>
+          <div
+            align="right"
+            className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-12-119 MuiGrid-grid-md-1-122"
+          >
+            <button
+              className="MuiButtonBase-root-188 MuiButton-root-162 MuiButton-contained-173 MuiButton-containedPrimary-174 MuiButton-raised-176 MuiButton-raisedPrimary-177 MuiButton-sizeSmall-185 remove-item-action"
+              disabled={false}
+              onBlur={[Function]}
+              onClick={[Function]}
+              onContextMenu={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              tabIndex="0"
+              type="button"
+            >
+              <span
+                className="MuiButton-label-163"
+              >
+                <svg
+                  fill="currentColor"
+                  height="1em"
+                  stroke="currentColor"
+                  strokeWidth="0"
+                  style={
+                    Object {
+                      "color": undefined,
+                    }
+                  }
+                  viewBox="0 0 448 512"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
+                  />
+                </svg>
+              </span>
+              <span
+                className="MuiTouchRipple-root-191"
+              />
+            </button>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div
+          className="MuiGrid-container-65"
+        >
+          <div
+            className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-3-124"
+          >
+            <span
+              className="MuiTypography-root-29 MuiTypography-body1-38 content-name"
+            >
+              apple
+            </span>
+          </div>
+          <div
+            className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-2-123"
+          >
+            <span
+              className="MuiTypography-root-29 MuiTypography-body1-38 content-brand"
+            >
+              San Fernando Produce
+            </span>
+          </div>
+          <div
+            className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-2-123"
+          >
+            <span
+              className="MuiTypography-root-29 MuiTypography-body1-38 content-country"
+            >
+              California
+            </span>
+          </div>
+          <div
+            className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-1-122"
+          >
+            <span
+              className="MuiTypography-root-29 MuiTypography-body1-38 MuiTypography-alignRight-53 content-quantity"
+            >
+              3
+            </span>
+          </div>
+          <div
+            className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-1-122"
+          >
+            <span
+              className="MuiTypography-root-29 MuiTypography-body1-38 content-unit"
+            >
+              each
+            </span>
+          </div>
+          <div
+            className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-2-123"
+          >
+            <span
+              className="MuiTypography-root-29 MuiTypography-body1-38 MuiTypography-alignRight-53 content-price"
+            >
+              -unit price-
+            </span>
+          </div>
+          <div
+            align="right"
+            className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-12-119 MuiGrid-grid-md-1-122"
+          >
+            <button
+              className="MuiButtonBase-root-188 MuiButton-root-162 MuiButton-contained-173 MuiButton-containedPrimary-174 MuiButton-raised-176 MuiButton-raisedPrimary-177 MuiButton-sizeSmall-185 remove-item-action"
+              disabled={false}
+              onBlur={[Function]}
+              onClick={[Function]}
+              onContextMenu={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              tabIndex="0"
+              type="button"
+            >
+              <span
+                className="MuiButton-label-163"
+              >
+                <svg
+                  fill="currentColor"
+                  height="1em"
+                  stroke="currentColor"
+                  strokeWidth="0"
+                  style={
+                    Object {
+                      "color": undefined,
+                    }
+                  }
+                  viewBox="0 0 448 512"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
+                  />
+                </svg>
+              </span>
+              <span
+                className="MuiTouchRipple-root-191"
+              />
+            </button>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div
+          className="MuiGrid-container-65"
+        >
+          <div
+            className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-9-130"
+          />
+          <div
+            align="right"
+            className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-2-123"
+          >
+            <p
+              className="MuiTypography-root-29 MuiTypography-body1-38 MuiTypography-alignRight-53 content-total"
+            >
+              -total price-
+            </p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div
+    className="content-shopping"
+  >
+    <div
+      className="MuiGrid-container-65"
+    >
+      <div
+        className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-11-132"
+      >
+        <h2
+          className="MuiTypography-root-29 MuiTypography-title-35 content-date"
+        >
+          Tuesday, 17th July
+        </h2>
+      </div>
+      <div
+        align="right"
+        className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-1-122"
+      >
+        <button
+          className="MuiButtonBase-root-188 MuiButton-root-162 MuiButton-contained-173 MuiButton-containedPrimary-174 MuiButton-raised-176 MuiButton-raisedPrimary-177 remove-list-action"
+          disabled={false}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onContextMenu={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex="0"
+          type="button"
+        >
+          <span
+            className="MuiButton-label-163"
+          >
+            <svg
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              strokeWidth="0"
+              style={
+                Object {
+                  "color": undefined,
+                }
+              }
+              viewBox="0 0 448 512"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
+              />
+            </svg>
+          </span>
+          <span
+            className="MuiTouchRipple-root-191"
+          />
+        </button>
+      </div>
+    </div>
+    <ul
+      className="content-items"
+    >
+      <li>
+        <div
+          className="MuiGrid-container-65"
+        >
+          <div
+            className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-3-124"
+          >
+            <span
+              className="MuiTypography-root-29 MuiTypography-body1-38 content-name"
+            >
+              anaroba extra-strong coffee
+            </span>
+          </div>
+          <div
+            className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-2-123"
+          >
+            <span
+              className="MuiTypography-root-29 MuiTypography-body1-38 content-brand"
+            >
+              Rio de Feliz Comidas
+            </span>
+          </div>
+          <div
+            className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-2-123"
+          >
+            <span
+              className="MuiTypography-root-29 MuiTypography-body1-38 content-country"
+            >
+              Argentina
+            </span>
+          </div>
+          <div
+            className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-1-122"
+          >
+            <span
+              className="MuiTypography-root-29 MuiTypography-body1-38 MuiTypography-alignRight-53 content-quantity"
+            >
+              300
+            </span>
+          </div>
+          <div
+            className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-1-122"
+          >
+            <span
+              className="MuiTypography-root-29 MuiTypography-body1-38 content-unit"
+            >
+              grams
+            </span>
+          </div>
+          <div
+            className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-2-123"
+          >
+            <span
+              className="MuiTypography-root-29 MuiTypography-body1-38 MuiTypography-alignRight-53 content-price"
+            >
+              -unit price-
+            </span>
+          </div>
+          <div
+            align="right"
+            className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-12-119 MuiGrid-grid-md-1-122"
+          >
+            <button
+              className="MuiButtonBase-root-188 MuiButton-root-162 MuiButton-contained-173 MuiButton-containedPrimary-174 MuiButton-raised-176 MuiButton-raisedPrimary-177 MuiButton-sizeSmall-185 remove-item-action"
+              disabled={false}
+              onBlur={[Function]}
+              onClick={[Function]}
+              onContextMenu={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              tabIndex="0"
+              type="button"
+            >
+              <span
+                className="MuiButton-label-163"
+              >
+                <svg
+                  fill="currentColor"
+                  height="1em"
+                  stroke="currentColor"
+                  strokeWidth="0"
+                  style={
+                    Object {
+                      "color": undefined,
+                    }
+                  }
+                  viewBox="0 0 448 512"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
+                  />
+                </svg>
+              </span>
+              <span
+                className="MuiTouchRipple-root-191"
+              />
+            </button>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div
+          className="MuiGrid-container-65"
+        >
+          <div
+            className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-9-130"
+          />
+          <div
+            align="right"
+            className="MuiGrid-item-66 MuiGrid-grid-xs-12-105 MuiGrid-grid-sm-6-113 MuiGrid-grid-md-2-123"
+          >
+            <p
+              className="MuiTypography-root-29 MuiTypography-body1-38 MuiTypography-alignRight-53 content-total"
+            >
+              -total price-
+            </p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+`;

@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import {FaTrash, FaPlus} from 'react-icons/fa';
-import ShoppingListDialog from './NewShoppingDialog';
+import ShoppingListDialog, {ShoppingListPanel} from './NewShoppingDialog';
 import 'typeface-roboto';
 import '../../css/shoppinglist.css';
 
@@ -139,7 +139,7 @@ class ShoppingList extends Component {
                         </Button>
                     </div>
                 </Card>
-                <ShoppingListDialog 
+                <ShoppingListDialog
                     show={this.state.showModal}
                     onClose={this.toggleShowModal}
                     products={this.props.products}

@@ -40,13 +40,30 @@ class ShoppingListPanel extends Component {
         e.preventDefault();
 
         if(this.state.addingList) {
-            const data = this.state.newList;
-            // addList
-            console.log("add new list...");
+            const {
+                listDate,
+                recurring, 
+                freqRate,
+                freqType
+            } = this.state.newList;
+            const addList = this.props.addList;
+            
+            addList(listDate, recurring, freqType, freqRate);
         } else {
-            const data = this.state.newItem;
-            // addItem
-            console.log("add new item...");
+            const {
+                date,
+                id,
+                quantity,
+                unit
+            } = this.state.newItem;
+            const addListItem = this.props.addListItem;
+            const item = {
+                id, 
+                quantity, 
+                unit
+            };
+
+            addListItem(date, item);
         }
 
         this.props.onClose();
@@ -82,19 +99,26 @@ class ShoppingListPanel extends Component {
     render() {
         const {
             products,
-            shoppingLists,
-            addList,
-            addListItem
+            shoppingLists
         } = this.props;
 
-        const items = products.map(p => (
-            { 
-                id: p.id, 
-                string: `${p.brand} ${p.name}, ${p.coo}`,
-            }
+        const items = products.map( p => (
+            <MenuItem key={p.id} value={p.id}>
+                {p.brand} {p.name} {p.coo}
+            </MenuItem>
         ));
-        const datetimes = uniq(shoppingLists.map(s => s.datetime));
-
+        const datetimes = shoppingLists.map( s => (
+            <MenuItem key={s.datetime} value={s.datetime}>
+                {D.format(s.datetime, "ddd Do MMMM")}
+            </MenuItem>
+        ));
+        
+        const units = uniq(products.map( p => p.defaultUnit)).map((u, step) => (
+            <MenuItem key={step} value={u}>
+                {u}
+            </MenuItem>
+        ));
+        
         const freqTypes = Object.keys(frequencies).map( (key, i) => (
             <MenuItem key={i} value={frequencies[key]}>{frequencies[key]}</MenuItem>
         ));
@@ -123,12 +147,22 @@ class ShoppingListPanel extends Component {
                             onSubmit={this.handleSubmit}>
                             <Grid container>
                                 <Grid item xs={12} md={2} className="input-content">
-                                    -datetime-
+                                    <FormControl>
+                                    <TextField
+                                        type="date" required
+                                        className="input-list-date"
+                                        onChange={this.handleChangeList}
+                                        value={this.state.newList.listDate}
+                                        name="listDate"
+                                    />
+                                    <FormHelperText>Shopping Date</FormHelperText>
+                                    </FormControl>
                                 </Grid>
-                                <Grid item xs={12} md={3} className="input-content">
+                                <Grid item xs={12} md={4} className="input-content">
+                                    <FormControl>
                                     <FormControlLabel
                                         control={
-                                            <Checkbox
+                                            <Checkbox required
                                             className="input-list-recurring"
                                             checked={this.state.newList.recurring}
                                             onChange={this.handleChangeList}
@@ -137,29 +171,36 @@ class ShoppingListPanel extends Component {
                                             color="primary"
                                             />
                                         }
-                                        label="Recurring"
+                                        label="Repeating?"
                                     />
+                                    </FormControl>
                                 </Grid>
                                 <Grid item xs={12} md={2} className="input-content">
+                                    <FormControl>
                                     <TextField onChange={this.handleChangeList}
                                         className="input-list-freq-rate"
                                         value={this.state.newList.freqRate}
+                                        name="freqRate" required
                                         inputProps={{
                                             type: "number",
                                             min: 1,
                                         }}
                                     />
+                                    <FormHelperText>Repeat Frequency</FormHelperText>
+                                    </FormControl>
                                 </Grid>
                                 <Grid item xs={12} md={3} className="input-content">
-                                    <Select
+                                    <FormControl>
+                                    <Select required
                                         className="input-list-freq-type"
                                         onChange={this.handleChangeList}
                                         value={this.state.newList.freqType}
-                                        name="addingList">
+                                        name="freqType">
                                             {freqTypes}
                                     </Select>
+                                    </FormControl>
                                 </Grid>
-                                <Grid item xs={12} md={2} align="right">
+                                <Grid item xs={12} md={1} align="right">
                                     <Button className="action-add" variant="contained"
                                         size="medium" color="primary" type="submit">
                                         <FaPlus/>
@@ -171,18 +212,53 @@ class ShoppingListPanel extends Component {
                             onSubmit={this.handleSubmit}>
                             <Grid container>
                                 <Grid item xs={12} md={2} className="input-content">
-                                    -select datetime-
+                                    <FormControl>
+                                        <Select required
+                                            className="select-add-item-date"
+                                            onChange={this.handleChangeItem}
+                                            value={this.state.newItem.date}
+                                            name="date">
+                                                {datetimes}
+                                        </Select>
+                                    <FormHelperText>Shopping Date</FormHelperText>
+                                    </FormControl>
                                 </Grid>
-                                <Grid item xs={12} md={3} className="input-content">
-                                    -select item-
+                                <Grid item xs={12} md={4} className="input-content">
+                                    <FormControl>
+                                        <Select required
+                                            className="select-add-item-id"
+                                            onChange={this.handleChangeItem}
+                                            value={this.state.newItem.id}
+                                            name="id">
+                                                {items}
+                                        </Select>
+                                        <FormHelperText>Item to buy</FormHelperText>
+                                    </FormControl>
                                 </Grid>
                                 <Grid item xs={12} md={2} className="input-content">
-                                    -quantity-
+                                    <FormControl>
+                                    <TextField required 
+                                        className="input-add-item-quantity"
+                                        name="quantity"
+                                        onChange={this.handleChangeItem}
+                                        value={this.state.newItem.quantity}
+                                    />
+                                    <FormHelperText>Quantity</FormHelperText>
+                                    </FormControl>
                                 </Grid>
                                 <Grid item xs={12} md={3} className="input-content">
-                                    -select unit-
+                                    <FormControl>
+                                        <Select required
+                                            className="select-add-item-unit"
+                                            onChange={this.handleChangeItem}
+                                            value={this.state.newItem.unit}
+                                            name="unit">
+                                                {units}
+                                        </Select>
+                                        <FormHelperText>Unit</FormHelperText>
+                                    </FormControl>
                                 </Grid>
-                                <Grid item xs={12} md={2} align="right">
+                                <Grid item xs={12} md={1} align="right">
                                     <Button className="action-add" variant="contained"
                                         size="medium" color="primary" type="submit">
                                         <FaPlus/>
@@ -200,7 +276,8 @@ ShoppingListPanel.propTypes = {
     products: PropTypes.array.isRequired,
     shoppingLists: PropTypes.array.isRequired,
     addList: PropTypes.func.isRequired,
-    addListItem: PropTypes.func.isRequired
+    addListItem: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired,
 }
 
 const ShoppingListDialog = (props) => {

@@ -86,19 +86,19 @@ exports[`NewIngredientModal Component render tests renders correctly 1`] = `
       id="countries"
     >
       <option
-        value="New Zealand"
+        value="NZL"
       />
       <option
-        value="Mexico"
+        value="MEX"
       />
       <option
-        value="California"
+        value="USA"
       />
       <option
-        value="Australia"
+        value="AUS"
       />
       <option
-        value="Argentina"
+        value="ARG"
       />
     </datalist>
     <datalist

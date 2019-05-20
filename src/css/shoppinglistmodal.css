@@ -12,3 +12,8 @@
 .input-content {
     padding: 0 1em;
 }
+
+.add-shopping-form label {
+    margin: -0.5em 1em;
+}
+

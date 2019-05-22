@@ -41,13 +41,11 @@ describe('ShoppingList Component rendering tests', () => {
         const shoppinglists = component.findAllByProps({className:"content-shopping"});
         shoppinglists.forEach( (shoplist, index) => {
             const expectedDate = D.format(expectedListItems[index].datetime, "dddd, Do MMMM");
-            const shownDate = shoplist
-                .findByProps({className:"content-date"}).props.children;
-            expect(shownDate)
-                .toEqual(expectedDate);
+            const shownDate = shoplist.findByProps({className:"content-date"}).props.children;
+            expect(shownDate).toEqual(expectedDate);
             const expectedItems = expectedListItems[index].items;
             const shoplistItems = shoplist.findAllByType("li");
-            const items = shoplistItems.slice(shoplistItems.length);
+            const items = shoplistItems.slice(0, shoplistItems.length - 1);
 
             // last "item" is actually a summary of costs.
             items.forEach( (shoplistItem, index) => {
@@ -58,11 +56,24 @@ describe('ShoppingList Component rendering tests', () => {
                 const unit = shoplistItem.findByProps({className:"content-unit"}).props.children;
                 const name = shoplistItem.findByProps({className:"content-name"}).props.children;
                 const brand = shoplistItem.findByProps({className:"content-brand"}).props.children;
+                const price = shoplistItem.findByProps({className:"content-price"}).props.children;
                 expect(Number(quantity)).toBe(expecteditem.quantity);
+                expect(Number(price)).toBe(expectedProduct.unitPrice * expecteditem.quantity);
                 expect(unit).toBe(expecteditem.unit);
                 expect(name).toBe(expectedProduct.name);
                 expect(brand).toBe(expectedProduct.brand);
             });
+
+            let totalCost = 0
+            expectedItems.forEach( item => {
+                const expectedProduct = products.find(x => x.id === item.id);
+                totalCost += expectedProduct.unitPrice * item.quantity;
+            });
+
+            const totalPrice = shoplist.findByProps({className:"content-total"}).props.children;
+
+            expect(Number.isNaN(totalPrice)).not.toBeTruthy();
+            expect(totalPrice).toEqual(totalCost);
         });
     });
 });

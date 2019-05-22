@@ -37,6 +37,7 @@ describe('NewIngredientModal Component behaviour tests', () => {
         const defaultUnitField = component.findByProps({name:"defaultunit"});
         const quantityField = component.findByProps({name:"quantity"});
         const unitField = component.findByProps({name:"unit"});
+        const priceField = component.findByProps({name:"unitPrice"});
 
         expect(categoryField.props.error).toBeTruthy();
         expect(subcategoryField.props.error).toBeTruthy();
@@ -45,6 +46,7 @@ describe('NewIngredientModal Component behaviour tests', () => {
         expect(defaultUnitField.props.error).toBeTruthy();
         expect(quantityField.props.error).toBeTruthy();
         expect(unitField.props.error).toBeTruthy();
+        expect(priceField.props.error).toBeTruthy();
 
         // text fields
         expect(nameField.props.error).toBeTruthy();
@@ -212,6 +214,92 @@ describe('NewIngredientModal Component behaviour tests', () => {
         });
         expect(quantityField.props.error).not.toBeTruthy();
 
+        expect(priceField.props.error).toBeTruthy();
+        priceField.props.onChange({
+            target: {
+                name: "unitPrice",
+                value: ""
+            }
+        });
+        expect(priceField.props.error).toBeTruthy();
+        priceField.props.onChange({
+            target: {
+                name: "unitPrice",
+                value: "a"
+            }
+        });
+        expect(priceField.props.error).toBeTruthy();
+        priceField.props.onChange({
+            target: {
+                name: "unitPrice",
+                value: "1"
+            }
+        });
+        expect(priceField.props.error).not.toBeTruthy();
+        priceField.props.onChange({
+            target: {
+                name: "unitPrice",
+                value: "1."
+            }
+        });
+        expect(priceField.props.error).not.toBeTruthy();
+        priceField.props.onChange({
+            target: {
+                name: "unitPrice",
+                value: ".1"
+            }
+        });
+        expect(priceField.props.error).not.toBeTruthy();
+        priceField.props.onChange({
+            target: {
+                name: "unitPrice",
+                value: "1.0"
+            }
+        });
+        expect(priceField.props.error).not.toBeTruthy();
+        priceField.props.onChange({
+            target: {
+                name: "unitPrice",
+                value: "0.1"
+            }
+        });
+        expect(priceField.props.error).not.toBeTruthy();
+        priceField.props.onChange({
+            target: {
+                name: "unitPrice",
+                value: "."
+            }
+        });
+        expect(priceField.props.error).toBeTruthy();
+        priceField.props.onChange({
+            target: {
+                name: "unitPrice",
+                value: "0"
+            }
+        });
+        expect(priceField.props.error).toBeTruthy();
+        priceField.props.onChange({
+            target: {
+                name: "unitPrice",
+                value: "-1"
+            }
+        });
+        expect(priceField.props.error).toBeTruthy();
+        priceField.props.onChange({
+            target: {
+                name: "unitPrice",
+                value: "-1.0"
+            }
+        });
+        expect(priceField.props.error).toBeTruthy();
+        priceField.props.onChange({
+            target: {
+                name: "unitPrice",
+                value: "500"
+            }
+        });
+        expect(priceField.props.error).not.toBeTruthy();
+
         // check warning message at bottom?
     });
 
@@ -223,10 +311,11 @@ describe('NewIngredientModal Component behaviour tests', () => {
             subcategory: "canned fruit",
             brand: "starkiss",
             coo: "mexico",
-            defaultunit: "gram"
+            defaultunit: "gram",
+            unitPrice: "9.29",
         };
-        const quantity = "500";
-        const unit = "gram";
+        const quantity = "1";
+        const unit = "packet (500 grams)";
 
         const component = create(modal).root;
         const nameField = component.findByProps({name:"name"});
@@ -237,6 +326,7 @@ describe('NewIngredientModal Component behaviour tests', () => {
         const defaultUnitField = component.findByProps({name:"defaultunit"});
         const quantityField = component.findByProps({name:"quantity"});
         const unitField = component.findByProps({name:"unit"});
+        const priceField = component.findByProps({name:"unitPrice"});
 
         const form = component.findByType("form");
 
@@ -285,6 +375,10 @@ describe('NewIngredientModal Component behaviour tests', () => {
         expect(component.props.onAddIngredient).not.toHaveBeenCalled();
 
         // do not do unit field last if default unit field called, as later also changes the former.
+        priceField.props.onChange(getChangeEvent("unitPrice", ingredient.unitPrice));
+        form.props.onSubmit(onSubmitEvent);
+        expect(component.props.onAddIngredient).not.toHaveBeenCalled();
+
         quantityField.props.onChange(getChangeEvent("quantity", quantity));
         form.props.onSubmit(onSubmitEvent);
         expect(component.props.onAddIngredient).toHaveBeenCalledWith(ingredient, quantity, unit);

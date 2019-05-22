@@ -113,6 +113,9 @@ exports[`NewIngredientModal Component render tests renders correctly 1`] = `
       <option
         value="grams"
       />
+      <option
+        value="packet (300 grams)"
+      />
     </datalist>
     <div
       className="MuiDialogTitle-root-1 title"
@@ -471,7 +474,72 @@ exports[`NewIngredientModal Component render tests renders correctly 1`] = `
         className="MuiGrid-container-39 row"
       >
         <div
-          className="MuiGrid-item-40 MuiGrid-grid-md-7-102"
+          className="MuiGrid-item-40 MuiGrid-grid-md-2-97"
+        />
+        <div
+          className="MuiGrid-item-40 MuiGrid-grid-xs-12-79 MuiGrid-grid-md-3-98"
+        >
+          <div
+            className="MuiFormControl-root-136 MuiFormControl-marginNormal-137 MuiFormControl-fullWidth-139"
+          >
+            <label
+              className="MuiFormLabel-root-151 MuiFormLabel-error-154 MuiInputLabel-error-143 MuiFormLabel-required-156 MuiInputLabel-required-144 MuiInputLabel-root-140 MuiInputLabel-formControl-145 MuiInputLabel-animated-148 MuiInputLabel-shrink-147 MuiInputLabel-outlined-150"
+              data-shrink={true}
+            >
+              Unit Price
+              <span
+                className="MuiFormLabel-asterisk-157 MuiFormLabel-error-154 MuiInputLabel-error-143"
+              >
+                 *
+              </span>
+            </label>
+            <div
+              className="MuiInputBase-root-171 MuiOutlinedInput-root-158 MuiInputBase-error-177 MuiOutlinedInput-error-163 MuiInputBase-fullWidth-180 MuiInputBase-formControl-172"
+              onClick={[Function]}
+            >
+              <fieldset
+                aria-hidden={true}
+                className="MuiPrivateNotchedOutline-root-188 MuiOutlinedInput-notchedOutline-165"
+                style={
+                  Object {
+                    "paddingLeft": 8,
+                  }
+                }
+              >
+                <legend
+                  className="MuiPrivateNotchedOutline-legend-189"
+                  style={
+                    Object {
+                      "width": 0,
+                    }
+                  }
+                >
+                  <span
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "&#8203;",
+                      }
+                    }
+                  />
+                </legend>
+              </fieldset>
+              <input
+                aria-invalid={true}
+                className="MuiInputBase-input-181 MuiOutlinedInput-input-166"
+                disabled={false}
+                name="unitPrice"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                placeholder="Price per Unit"
+                required={true}
+                type="text"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="MuiGrid-item-40 MuiGrid-grid-md-2-97"
         />
         <div
           className="MuiGrid-item-40 MuiGrid-grid-xs-12-79 MuiGrid-grid-md-5-100"

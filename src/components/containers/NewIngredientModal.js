@@ -21,7 +21,8 @@ const
     subcategory = "subcategory must have a value.",
     coo = "country of origin must have a value.",
     defaultunit = "default unit must have a value.",
-    unit = "unit must have a value.";
+    unit = "unit must have a value.",
+    price = "price must have a value.";
 const errorMessages = {
     quantity,
     name,
@@ -31,6 +32,7 @@ const errorMessages = {
     coo,
     defaultunit,
     unit,
+    price,
 };
 
 const makeDatalist = (products, key) => {
@@ -53,6 +55,7 @@ class NewIngredientPanel extends Component {
             defaultunit: "",
             quantity: 0,
             unit: "",
+            unitPrice: 0,
             errors: {
                 name: true,
                 category: true,
@@ -62,17 +65,16 @@ class NewIngredientPanel extends Component {
                 defaultunit: true,
                 quantity: true,
                 unit: true,
+                unitPrice: true,
                 message: errorMessages.quantity,
             }
         };
 
-        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClose = this.handleClose.bind(this);
-        this.handleErrorChecking = this.handleErrorChecking.bind(this);
     }
 
-    handleChange(event) {
+    handleChange = (event) => {
         const target = event.target;
         const name = target.name;
         const value = target.value;
@@ -86,40 +88,16 @@ class NewIngredientPanel extends Component {
         this.handleErrorChecking(event);
     }
 
-    handleErrorChecking(event) {
+    handleErrorChecking = (event) => {
         const target = event.target;
         const name = target.name;
         const value = target.value;
         const errors = this.state.errors;
 
-        if(value === "" || (name === "quantity" && (isNaN(value) || Number(value) <= 0))) {
+        if(value === "" || ((name === "quantity" || name === "unitPrice") && (isNaN(value) || Number(value) <= 0))) {
             errors[name] = true;
         } else if (name !== undefined) {
             errors[name] = false;
-        }
-
-        for(let name in errors) {
-            if( name === "message") {
-                continue;
-            }
-
-            const value = this.state[name];
-            if (name === "quantity") {
-                if (isNaN(value) || Number(value) <= 0) {
-
-                }
-                else {
-
-                }
-            }
-            else {
-                if (value === "") {
-                    
-                }
-                else {
-
-                }
-            }
         }
 
         errors.message = "";
@@ -133,9 +111,9 @@ class NewIngredientPanel extends Component {
         this.setState({errors: errors});
     }
 
-    handleSubmit(event) {
+    handleSubmit = (event) => {
         event.preventDefault();
-        // I don't know why it's putting "" in errors state, but this fixes it. 
+        // FIXME I don't know why it's putting "" in errors state, but this fixes it. 
         const errorState = omit(this.state.errors, [""]);
 
         for(let name in errorState) {
@@ -163,6 +141,7 @@ class NewIngredientPanel extends Component {
                 defaultunit: "",
                 quantity: 0,
                 unit: "",
+                unitPrice: 0,
                 errors: {
                     name: true,
                     category: true,
@@ -172,6 +151,7 @@ class NewIngredientPanel extends Component {
                     defaultunit: true,
                     quantity: true,
                     unit: true,
+                    unitPrice: true,
                     message: errorMessages.quantity,
                 }
             });
@@ -188,6 +168,7 @@ class NewIngredientPanel extends Component {
             defaultunit: "",
             quantity: 0,
             unit: "",
+            unitPrice: 0,
             errors: {
                 name: true,
                 category: true,
@@ -197,6 +178,7 @@ class NewIngredientPanel extends Component {
                 defaultunit: true,
                 quantity: true,
                 unit: true,
+                unitPrice: true,
                 message: errorMessages.quantity,
             }
         });
@@ -204,7 +186,6 @@ class NewIngredientPanel extends Component {
     }
 
     render() {
-
         const products = this.props.products;
 
         const names = makeDatalist(products, "name");
@@ -352,7 +333,27 @@ class NewIngredientPanel extends Component {
                         </Grid>
 
                         <Grid container className="row">
-                            <Grid item xs={false} md={7}>    
+
+                            <Grid item xs={false} md={2}>  
+                            </Grid>
+
+                            <Grid item xs={12} md={3}>
+                                <TextField required name="unitPrice"
+                                    label="Unit Price"
+                                    variant="outlined"
+                                    fullWidth
+                                    placeholder="Price per Unit" 
+                                    onChange={this.handleChange}
+                                    value={this.state.price} 
+                                    margin="normal"
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    error={this.state.errors.unitPrice}
+                                />
+                            </Grid>
+                            
+                            <Grid item xs={false} md={2}>    
                             </Grid>
                             
                             <Grid item xs={12} md={5}>

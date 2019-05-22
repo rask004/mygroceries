@@ -127,7 +127,7 @@ exports[`ShoppingList Component rendering tests rendering snapshot 1`] = `
             <span
               className="MuiTypography-root-29 MuiTypography-body1-38 MuiTypography-alignRight-53 content-price"
             >
-              -unit * quantity price-
+              12.450000000000001
             </span>
           </div>
           <div
@@ -227,7 +227,7 @@ exports[`ShoppingList Component rendering tests rendering snapshot 1`] = `
             <span
               className="MuiTypography-root-29 MuiTypography-body1-38 MuiTypography-alignRight-53 content-price"
             >
-              -unit * quantity price-
+              8.52
             </span>
           </div>
           <div
@@ -295,7 +295,7 @@ exports[`ShoppingList Component rendering tests rendering snapshot 1`] = `
             <p
               className="MuiTypography-root-29 MuiTypography-body1-38 MuiTypography-alignRight-53 content-total"
             >
-              -total price-
+              20.97
             </p>
           </div>
         </div>
@@ -420,7 +420,7 @@ exports[`ShoppingList Component rendering tests rendering snapshot 1`] = `
             <span
               className="MuiTypography-root-29 MuiTypography-body1-38 MuiTypography-alignRight-53 content-price"
             >
-              -unit * quantity price-
+              2373
             </span>
           </div>
           <div
@@ -488,7 +488,7 @@ exports[`ShoppingList Component rendering tests rendering snapshot 1`] = `
             <p
               className="MuiTypography-root-29 MuiTypography-body1-38 MuiTypography-alignRight-53 content-total"
             >
-              -total price-
+              2373
             </p>
           </div>
         </div>

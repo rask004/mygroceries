@@ -25,6 +25,17 @@ class ShoppingList extends Component {
         this.setState((prevState) => {return {showModal: !prevState.showModal}});
     }
 
+    calculateTotalPrice = (items) => {
+        const products = this.props.products;
+        let total = 0;
+        items.forEach( (item) => {
+            const quantity = item.quantity;
+            const price = products.find(p => p.id === item.id).unitPrice;
+            total += quantity * price;
+        });
+        return total;
+    }
+
     render() {
         const products = this.props.products;
         const shoppinglists = this.props.shoppingLists.length > 0 ?
@@ -58,7 +69,7 @@ class ShoppingList extends Component {
                             </Grid>
                             <Grid item xs={12} sm={6} md={2}>
                                 <Typography component="span" className="content-price" align="right">
-                                    -unit * quantity price-
+                                    {item.quantity * product.unitPrice}
                                 </Typography>
                             </Grid>
                             <Grid item xs={12} sm={12} md={1} align="right">
@@ -84,7 +95,7 @@ class ShoppingList extends Component {
                     <Grid item xs={12} sm={6} md={9} />
                     <Grid item xs={12} sm={6} md={2} align="right">
                         <Typography className="content-total" align="right">
-                            -total price-
+                            {this.calculateTotalPrice(items)}
                         </Typography>
                     </Grid> 
                 </Grid>

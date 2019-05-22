@@ -7,7 +7,8 @@
         "brand":"Pure Orchards LTD",
         "category":"produce",
         "subcategory":"fruit",
-        "defaultUnit":"each"
+        "defaultUnit":"each",
+        "unitPrice": 2.99
      },
      {
         "id":2,
@@ -16,7 +17,8 @@
         "brand":"Pure Orchards LTD",
         "category":"produce",
         "subcategory":"fruit",
-        "defaultUnit":"each"
+        "defaultUnit":"each",
+        "unitPrice": 2.49
      },
      {
         "id":3,
@@ -25,7 +27,8 @@
         "brand":"Dole LTD",
         "category":"produce",
         "subcategory":"fruit",
-        "defaultUnit":"each"
+        "defaultUnit":"each",
+        "unitPrice": 2.79
      },
      {
         "id":4,
@@ -34,7 +37,8 @@
         "brand":"Anchor LTD",
         "category":"foodstuffs",
         "subcategory":"dairy",
-        "defaultUnit":"litre"
+        "defaultUnit":"litre",
+        "unitPrice": 4.20
      },
      {
         "id":5,
@@ -43,7 +47,8 @@
         "brand":"San Fernando Produce",
         "category":"produce",
         "subcategory":"fruit",
-        "defaultUnit":"each"
+        "defaultUnit":"each",
+        "unitPrice": 2.84
      },
      {
         "id":6,
@@ -52,7 +57,8 @@
         "brand":"Sunkiss Products",
         "category":"canned foods",
         "subcategory":"pickles",
-        "defaultUnit":"grams"
+        "defaultUnit":"grams",
+        "unitPrice": 3.19
      },
      {
         "id":7,
@@ -61,7 +67,8 @@
         "brand":"Rio de Feliz Comidas",
         "category":"drinks",
         "subcategory":"coffee",
-        "defaultUnit":"grams"
+        "defaultUnit":"packet (300 grams)",
+        "unitPrice": 7.91
      }
   ],
   "recipes":[

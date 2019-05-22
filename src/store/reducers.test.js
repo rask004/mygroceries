@@ -14,7 +14,8 @@ describe('Test Reducers, Product', () => {
             brand:"Sunstroke LTD",
             category:"produce",
             subcategory:"fruit",
-            defaultUnit:"each"
+            defaultUnit:"each",
+            unitPrice: 4.99
         };
         
         const add_action = {
@@ -38,7 +39,8 @@ describe('Test Reducers, Product', () => {
                 brand:"Pure Orchards LTD",
                 category:"produce",
                 subcategory:"fruit",
-                defaultUnit:"each"
+                defaultUnit:"each",
+                unitPrice: 4.99
             }
         };
 
